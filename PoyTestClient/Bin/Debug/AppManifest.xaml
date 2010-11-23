@@ -1,0 +1,6 @@
+﻿<Deployment xmlns="http://schemas.microsoft.com/client/2007/deployment" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" EntryPointAssembly="PoyTestClient" EntryPointType="PoyTestClient.App" RuntimeVersion="3.0.40818.0">
+  <Deployment.Parts>
+    <AssemblyPart x:Name="PoyTestClient" Source="PoyTestClient.dll" />
+    <AssemblyPart x:Name="System.Xml.Serialization" Source="System.Xml.Serialization.dll" />
+  </Deployment.Parts>
+</Deployment>

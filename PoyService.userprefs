@@ -1,0 +1,36 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" ctype="Workspace" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="PoyService/Email.cs" ctype="Workbench">
+    <Files>
+      <File FileName="PoyService/Poy.cs" Line="1" Column="1" />
+      <File FileName="PoyService/PoyService.asmx" Line="1" Column="1" />
+      <File FileName="PoyService/PoyService.asmx.cs" Line="1" Column="1" />
+      <File FileName="PoyRunner/Upload.aspx.cs" Line="1" Column="1" />
+      <File FileName="PoyService/DataAccess.cs" Line="1" Column="1" />
+      <File FileName="PoyService/ApplicationSubmited.htm" Line="1" Column="1" />
+      <File FileName="PoyService/Application.aspx.cs" Line="1" Column="1" />
+      <File FileName="PoyService/Email.cs" Line="25" Column="52" />
+      <File FileName="PoyService/Admin.aspx.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="PoyRunner" expanded="True" />
+          <Node name="PoyService" expanded="True">
+            <Node name="Admin.aspx" expanded="True" />
+            <Node name="Application.aspx" expanded="True" />
+            <Node name="Email.cs" selected="True" />
+            <Node name="PoyService.asmx" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="ClassPad">
+        <State expanded="True" selected="True">
+          <Node name="PoyService" expanded="True">
+            <Node name="PoyService" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+</Properties>

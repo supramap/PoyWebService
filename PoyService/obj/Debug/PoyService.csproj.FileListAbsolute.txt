@@ -1,0 +1,20 @@
+C:\Users\Jacob\Documents\My Dropbox\Work\PoyService\PoyService\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Jacob\Documents\My Dropbox\Work\PoyService\PoyService\obj\Debug\PoyService.dll
+C:\Users\Jacob\Documents\My Dropbox\Work\PoyService\PoyService\obj\Debug\PoyService.pdb
+C:\Users\Jacob\Documents\My Dropbox\Work\PoyService\PoyService\bin\PoyService.dll
+C:\Users\Jacob\Documents\My Dropbox\Work\PoyService\PoyService\bin\PoyService.pdb
+C:\Users\Jacob\Documents\My Dropbox\Work\PoyService\PoyService\bin\DiffieHellman.dll
+C:\Users\Jacob\Documents\My Dropbox\Work\PoyService\PoyService\bin\Org.Mentalis.Security.dll
+C:\Users\Jacob\Documents\My Dropbox\Work\PoyService\PoyService\bin\Tamir.SharpSSH.dll
+C:\Users\Jacob\Documents\Visual Studio 2010\Projects\PoyService\PoyService\bin\PoyService.dll
+C:\Users\Jacob\Documents\Visual Studio 2010\Projects\PoyService\PoyService\bin\PoyService.pdb
+C:\Users\Jacob\Documents\Visual Studio 2010\Projects\PoyService\PoyService\bin\DiffieHellman.dll
+C:\Users\Jacob\Documents\Visual Studio 2010\Projects\PoyService\PoyService\bin\MySql.Data.dll
+C:\Users\Jacob\Documents\Visual Studio 2010\Projects\PoyService\PoyService\bin\Org.Mentalis.Security.dll
+C:\Users\Jacob\Documents\Visual Studio 2010\Projects\PoyService\PoyService\bin\Tamir.SharpSSH.dll
+C:\Users\Jacob\Documents\Visual Studio 2010\Projects\PoyService\PoyService\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Jacob\Documents\Visual Studio 2010\Projects\PoyService\PoyService\obj\Debug\PoyService.Properties.Resources.resources
+C:\Users\Jacob\Documents\Visual Studio 2010\Projects\PoyService\PoyService\obj\Debug\GenerateResource-ResGen.read.1.tlog
+C:\Users\Jacob\Documents\Visual Studio 2010\Projects\PoyService\PoyService\obj\Debug\GenerateResource-ResGen.write.1.tlog
+C:\Users\Jacob\Documents\Visual Studio 2010\Projects\PoyService\PoyService\obj\Debug\PoyService.dll
+C:\Users\Jacob\Documents\Visual Studio 2010\Projects\PoyService\PoyService\obj\Debug\PoyService.pdb

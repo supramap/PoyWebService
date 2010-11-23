@@ -1,0 +1,1 @@
+﻿<%@ WebService Language="C#" CodeBehind="PoyService.asmx.cs" Class="PoyService.PoyService" %>

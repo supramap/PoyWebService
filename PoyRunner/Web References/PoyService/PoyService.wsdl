@@ -1,0 +1,674 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s0="supramap" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" name="PoyService" targetNamespace="supramap" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="supramap" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="Init">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="InitResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="InitResult" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="AddFile">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="jobId" type="xs:int" />
+            <xs:element minOccurs="0" maxOccurs="1" name="fileData" type="xs:base64Binary" />
+            <xs:element minOccurs="0" maxOccurs="1" name="fileName" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="AddFileResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="AddFileResult" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="AddTextFile">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="jobId" type="xs:int" />
+            <xs:element minOccurs="0" maxOccurs="1" name="fileData" type="xs:string" />
+            <xs:element minOccurs="0" maxOccurs="1" name="fileName" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="AddTextFileResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="AddTextFileResult" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SubmitPoy">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="jobId" type="xs:int" />
+            <xs:element minOccurs="1" maxOccurs="1" name="numberOfNodes" type="xs:int" />
+            <xs:element minOccurs="1" maxOccurs="1" name="wallTimeHours" type="xs:int" />
+            <xs:element minOccurs="1" maxOccurs="1" name="wallTimeMinutes" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SubmitPoyResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="SubmitPoyResult" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="IsDoneYet">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="jobId" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="IsDoneYetResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="IsDoneYetResult" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetFile">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="jobId" type="xs:int" />
+            <xs:element minOccurs="0" maxOccurs="1" name="fileName" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetFileResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="GetFileResult" type="xs:base64Binary" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="int" type="xs:int" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="boolean" type="xs:boolean" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+    </xs:schema>
+  </types>
+  <message name="InitSoapIn">
+    <part name="parameters" element="s0:Init" />
+  </message>
+  <message name="InitSoapOut">
+    <part name="parameters" element="s0:InitResponse" />
+  </message>
+  <message name="AddFileSoapIn">
+    <part name="parameters" element="s0:AddFile" />
+  </message>
+  <message name="AddFileSoapOut">
+    <part name="parameters" element="s0:AddFileResponse" />
+  </message>
+  <message name="AddTextFileSoapIn">
+    <part name="parameters" element="s0:AddTextFile" />
+  </message>
+  <message name="AddTextFileSoapOut">
+    <part name="parameters" element="s0:AddTextFileResponse" />
+  </message>
+  <message name="SubmitPoySoapIn">
+    <part name="parameters" element="s0:SubmitPoy" />
+  </message>
+  <message name="SubmitPoySoapOut">
+    <part name="parameters" element="s0:SubmitPoyResponse" />
+  </message>
+  <message name="IsDoneYetSoapIn">
+    <part name="parameters" element="s0:IsDoneYet" />
+  </message>
+  <message name="IsDoneYetSoapOut">
+    <part name="parameters" element="s0:IsDoneYetResponse" />
+  </message>
+  <message name="GetFileSoapIn">
+    <part name="parameters" element="s0:GetFile" />
+  </message>
+  <message name="GetFileSoapOut">
+    <part name="parameters" element="s0:GetFileResponse" />
+  </message>
+  <message name="InitHttpGetIn" />
+  <message name="InitHttpGetOut">
+    <part name="Body" element="s0:int" />
+  </message>
+  <message name="AddFileHttpGetIn">
+    <part name="jobId" type="s:int" />
+    <part name="fileData" type="s:base64Binary" />
+    <part name="fileName" type="s:string" />
+  </message>
+  <message name="AddFileHttpGetOut">
+    <part name="Body" element="s0:string" />
+  </message>
+  <message name="AddTextFileHttpGetIn">
+    <part name="jobId" type="s:int" />
+    <part name="fileData" type="s:string" />
+    <part name="fileName" type="s:string" />
+  </message>
+  <message name="AddTextFileHttpGetOut">
+    <part name="Body" element="s0:string" />
+  </message>
+  <message name="SubmitPoyHttpGetIn">
+    <part name="jobId" type="s:int" />
+    <part name="numberOfNodes" type="s:int" />
+    <part name="wallTimeHours" type="s:int" />
+    <part name="wallTimeMinutes" type="s:int" />
+  </message>
+  <message name="SubmitPoyHttpGetOut">
+    <part name="Body" element="s0:string" />
+  </message>
+  <message name="IsDoneYetHttpGetIn">
+    <part name="jobId" type="s:int" />
+  </message>
+  <message name="IsDoneYetHttpGetOut">
+    <part name="Body" element="s0:boolean" />
+  </message>
+  <message name="GetFileHttpGetIn">
+    <part name="jobId" type="s:int" />
+    <part name="fileName" type="s:string" />
+  </message>
+  <message name="GetFileHttpGetOut">
+    <part name="Body" element="s0:base64Binary" />
+  </message>
+  <message name="InitHttpPostIn" />
+  <message name="InitHttpPostOut">
+    <part name="Body" element="s0:int" />
+  </message>
+  <message name="AddFileHttpPostIn">
+    <part name="jobId" type="s:int" />
+    <part name="fileData" type="s:base64Binary" />
+    <part name="fileName" type="s:string" />
+  </message>
+  <message name="AddFileHttpPostOut">
+    <part name="Body" element="s0:string" />
+  </message>
+  <message name="AddTextFileHttpPostIn">
+    <part name="jobId" type="s:int" />
+    <part name="fileData" type="s:string" />
+    <part name="fileName" type="s:string" />
+  </message>
+  <message name="AddTextFileHttpPostOut">
+    <part name="Body" element="s0:string" />
+  </message>
+  <message name="SubmitPoyHttpPostIn">
+    <part name="jobId" type="s:int" />
+    <part name="numberOfNodes" type="s:int" />
+    <part name="wallTimeHours" type="s:int" />
+    <part name="wallTimeMinutes" type="s:int" />
+  </message>
+  <message name="SubmitPoyHttpPostOut">
+    <part name="Body" element="s0:string" />
+  </message>
+  <message name="IsDoneYetHttpPostIn">
+    <part name="jobId" type="s:int" />
+  </message>
+  <message name="IsDoneYetHttpPostOut">
+    <part name="Body" element="s0:boolean" />
+  </message>
+  <message name="GetFileHttpPostIn">
+    <part name="jobId" type="s:int" />
+    <part name="fileName" type="s:string" />
+  </message>
+  <message name="GetFileHttpPostOut">
+    <part name="Body" element="s0:base64Binary" />
+  </message>
+  <portType name="PoyServiceSoap">
+    <operation name="Init">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">The 'Init' method basically creates a directory on the super computer it returns a token that must be 
+          used on all subsequent method calls as the jobId parameter. This method currently has no parameters but 
+          might have a userID and a password in the future.</wsdl:documentation>
+      <input message="s0:InitSoapIn" />
+      <output message="s0:InitSoapOut" />
+    </operation>
+    <operation name="AddFile">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">The 'AddFile' method is used to basically put a file on the super 
+         computer. It should be called once to a load a .poy script. Plus 
+         it should be called for each file that the POY script references. 
+         It is the responsibility of the downstream client developer to 
+         generate the POY scripts this places more work in there hands but 
+         also give them great flexibility to do design web apps that can 
+         use POY for anything.
+		</wsdl:documentation>
+      <input message="s0:AddFileSoapIn" />
+      <output message="s0:AddFileSoapOut" />
+    </operation>
+    <operation name="AddTextFile">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">An alternative to the Add File method that uses a simple string as parameter  instead of binary data.</wsdl:documentation>
+      <input message="s0:AddTextFileSoapIn" />
+      <output message="s0:AddTextFileSoapOut" />
+    </operation>
+    <operation name="SubmitPoy">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">   The 'SubmitPoy' method start a job on the super computer 
+         that start the POY job. When running a job on a super computer 
+         you have to request a what resource you need like how many 
+         processors, how many nodes, how much memory and how long it 
+         will take. If you ask for a lot of resources your job could 
+         get scheduled for a future date instead of running immediately. 
+         So it would not be suitable for  realtime-ish apps. On the other 
+         hand if you request to little resources your job might not finish. 
+         Also we could extend the web service by adding new method that 
+         are similar to this one but only use other back-end Linux tools. 
+         These methods could take advantage of all of the existing infrastructure. </wsdl:documentation>
+      <input message="s0:SubmitPoySoapIn" />
+      <output message="s0:SubmitPoySoapOut" />
+    </operation>
+    <operation name="IsDoneYet">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">  The client must periodically poll the service after it submits its job so it knows when its job is done. 
+        The 'IsDoneYet' method does just that and returns true if the job is done and false if the job is not 
+        done yet. </wsdl:documentation>
+      <input message="s0:IsDoneYetSoapIn" />
+      <output message="s0:IsDoneYetSoapOut" />
+    </operation>
+    <operation name="GetFile">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">The last method 'GetFile' basically is used to retrieve the output files specified in the POY script. It is called once per file. </wsdl:documentation>
+      <input message="s0:GetFileSoapIn" />
+      <output message="s0:GetFileSoapOut" />
+    </operation>
+  </portType>
+  <portType name="PoyServiceSoap12">
+    <operation name="Init">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">The 'Init' method basically creates a directory on the super computer it returns a token that must be 
+          used on all subsequent method calls as the jobId parameter. This method currently has no parameters but 
+          might have a userID and a password in the future.</wsdl:documentation>
+      <input message="s0:InitSoapIn" />
+      <output message="s0:InitSoapOut" />
+    </operation>
+    <operation name="AddFile">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">The 'AddFile' method is used to basically put a file on the super 
+         computer. It should be called once to a load a .poy script. Plus 
+         it should be called for each file that the POY script references. 
+         It is the responsibility of the downstream client developer to 
+         generate the POY scripts this places more work in there hands but 
+         also give them great flexibility to do design web apps that can 
+         use POY for anything.
+		</wsdl:documentation>
+      <input message="s0:AddFileSoapIn" />
+      <output message="s0:AddFileSoapOut" />
+    </operation>
+    <operation name="AddTextFile">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">An alternative to the Add File method that uses a simple string as parameter  instead of binary data.</wsdl:documentation>
+      <input message="s0:AddTextFileSoapIn" />
+      <output message="s0:AddTextFileSoapOut" />
+    </operation>
+    <operation name="SubmitPoy">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">   The 'SubmitPoy' method start a job on the super computer 
+         that start the POY job. When running a job on a super computer 
+         you have to request a what resource you need like how many 
+         processors, how many nodes, how much memory and how long it 
+         will take. If you ask for a lot of resources your job could 
+         get scheduled for a future date instead of running immediately. 
+         So it would not be suitable for  realtime-ish apps. On the other 
+         hand if you request to little resources your job might not finish. 
+         Also we could extend the web service by adding new method that 
+         are similar to this one but only use other back-end Linux tools. 
+         These methods could take advantage of all of the existing infrastructure. </wsdl:documentation>
+      <input message="s0:SubmitPoySoapIn" />
+      <output message="s0:SubmitPoySoapOut" />
+    </operation>
+    <operation name="IsDoneYet">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">  The client must periodically poll the service after it submits its job so it knows when its job is done. 
+        The 'IsDoneYet' method does just that and returns true if the job is done and false if the job is not 
+        done yet. </wsdl:documentation>
+      <input message="s0:IsDoneYetSoapIn" />
+      <output message="s0:IsDoneYetSoapOut" />
+    </operation>
+    <operation name="GetFile">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">The last method 'GetFile' basically is used to retrieve the output files specified in the POY script. It is called once per file. </wsdl:documentation>
+      <input message="s0:GetFileSoapIn" />
+      <output message="s0:GetFileSoapOut" />
+    </operation>
+  </portType>
+  <portType name="PoyServiceHttpGet">
+    <operation name="Init">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">The 'Init' method basically creates a directory on the super computer it returns a token that must be 
+          used on all subsequent method calls as the jobId parameter. This method currently has no parameters but 
+          might have a userID and a password in the future.</wsdl:documentation>
+      <input message="s0:InitHttpGetIn" />
+      <output message="s0:InitHttpGetOut" />
+    </operation>
+    <operation name="AddFile">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">The 'AddFile' method is used to basically put a file on the super 
+         computer. It should be called once to a load a .poy script. Plus 
+         it should be called for each file that the POY script references. 
+         It is the responsibility of the downstream client developer to 
+         generate the POY scripts this places more work in there hands but 
+         also give them great flexibility to do design web apps that can 
+         use POY for anything.
+		</wsdl:documentation>
+      <input message="s0:AddFileHttpGetIn" />
+      <output message="s0:AddFileHttpGetOut" />
+    </operation>
+    <operation name="AddTextFile">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">An alternative to the Add File method that uses a simple string as parameter  instead of binary data.</wsdl:documentation>
+      <input message="s0:AddTextFileHttpGetIn" />
+      <output message="s0:AddTextFileHttpGetOut" />
+    </operation>
+    <operation name="SubmitPoy">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">   The 'SubmitPoy' method start a job on the super computer 
+         that start the POY job. When running a job on a super computer 
+         you have to request a what resource you need like how many 
+         processors, how many nodes, how much memory and how long it 
+         will take. If you ask for a lot of resources your job could 
+         get scheduled for a future date instead of running immediately. 
+         So it would not be suitable for  realtime-ish apps. On the other 
+         hand if you request to little resources your job might not finish. 
+         Also we could extend the web service by adding new method that 
+         are similar to this one but only use other back-end Linux tools. 
+         These methods could take advantage of all of the existing infrastructure. </wsdl:documentation>
+      <input message="s0:SubmitPoyHttpGetIn" />
+      <output message="s0:SubmitPoyHttpGetOut" />
+    </operation>
+    <operation name="IsDoneYet">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">  The client must periodically poll the service after it submits its job so it knows when its job is done. 
+        The 'IsDoneYet' method does just that and returns true if the job is done and false if the job is not 
+        done yet. </wsdl:documentation>
+      <input message="s0:IsDoneYetHttpGetIn" />
+      <output message="s0:IsDoneYetHttpGetOut" />
+    </operation>
+    <operation name="GetFile">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">The last method 'GetFile' basically is used to retrieve the output files specified in the POY script. It is called once per file. </wsdl:documentation>
+      <input message="s0:GetFileHttpGetIn" />
+      <output message="s0:GetFileHttpGetOut" />
+    </operation>
+  </portType>
+  <portType name="PoyServiceHttpPost">
+    <operation name="Init">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">The 'Init' method basically creates a directory on the super computer it returns a token that must be 
+          used on all subsequent method calls as the jobId parameter. This method currently has no parameters but 
+          might have a userID and a password in the future.</wsdl:documentation>
+      <input message="s0:InitHttpPostIn" />
+      <output message="s0:InitHttpPostOut" />
+    </operation>
+    <operation name="AddFile">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">The 'AddFile' method is used to basically put a file on the super 
+         computer. It should be called once to a load a .poy script. Plus 
+         it should be called for each file that the POY script references. 
+         It is the responsibility of the downstream client developer to 
+         generate the POY scripts this places more work in there hands but 
+         also give them great flexibility to do design web apps that can 
+         use POY for anything.
+		</wsdl:documentation>
+      <input message="s0:AddFileHttpPostIn" />
+      <output message="s0:AddFileHttpPostOut" />
+    </operation>
+    <operation name="AddTextFile">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">An alternative to the Add File method that uses a simple string as parameter  instead of binary data.</wsdl:documentation>
+      <input message="s0:AddTextFileHttpPostIn" />
+      <output message="s0:AddTextFileHttpPostOut" />
+    </operation>
+    <operation name="SubmitPoy">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">   The 'SubmitPoy' method start a job on the super computer 
+         that start the POY job. When running a job on a super computer 
+         you have to request a what resource you need like how many 
+         processors, how many nodes, how much memory and how long it 
+         will take. If you ask for a lot of resources your job could 
+         get scheduled for a future date instead of running immediately. 
+         So it would not be suitable for  realtime-ish apps. On the other 
+         hand if you request to little resources your job might not finish. 
+         Also we could extend the web service by adding new method that 
+         are similar to this one but only use other back-end Linux tools. 
+         These methods could take advantage of all of the existing infrastructure. </wsdl:documentation>
+      <input message="s0:SubmitPoyHttpPostIn" />
+      <output message="s0:SubmitPoyHttpPostOut" />
+    </operation>
+    <operation name="IsDoneYet">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">  The client must periodically poll the service after it submits its job so it knows when its job is done. 
+        The 'IsDoneYet' method does just that and returns true if the job is done and false if the job is not 
+        done yet. </wsdl:documentation>
+      <input message="s0:IsDoneYetHttpPostIn" />
+      <output message="s0:IsDoneYetHttpPostOut" />
+    </operation>
+    <operation name="GetFile">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">The last method 'GetFile' basically is used to retrieve the output files specified in the POY script. It is called once per file. </wsdl:documentation>
+      <input message="s0:GetFileHttpPostIn" />
+      <output message="s0:GetFileHttpPostOut" />
+    </operation>
+  </portType>
+  <binding name="PoyServiceSoap" type="s0:PoyServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="Init">
+      <soap:operation soapAction="supramap/Init" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="AddFile">
+      <soap:operation soapAction="supramap/AddFile" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="AddTextFile">
+      <soap:operation soapAction="supramap/AddTextFile" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="SubmitPoy">
+      <soap:operation soapAction="supramap/SubmitPoy" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="IsDoneYet">
+      <soap:operation soapAction="supramap/IsDoneYet" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetFile">
+      <soap:operation soapAction="supramap/GetFile" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <binding name="PoyServiceSoap12" type="s0:PoyServiceSoap12">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="Init">
+      <soap12:operation soapAction="supramap/Init" style="document" />
+      <input>
+        <soap12:body use="literal" />
+      </input>
+      <output>
+        <soap12:body use="literal" />
+      </output>
+    </operation>
+    <operation name="AddFile">
+      <soap12:operation soapAction="supramap/AddFile" style="document" />
+      <input>
+        <soap12:body use="literal" />
+      </input>
+      <output>
+        <soap12:body use="literal" />
+      </output>
+    </operation>
+    <operation name="AddTextFile">
+      <soap12:operation soapAction="supramap/AddTextFile" style="document" />
+      <input>
+        <soap12:body use="literal" />
+      </input>
+      <output>
+        <soap12:body use="literal" />
+      </output>
+    </operation>
+    <operation name="SubmitPoy">
+      <soap12:operation soapAction="supramap/SubmitPoy" style="document" />
+      <input>
+        <soap12:body use="literal" />
+      </input>
+      <output>
+        <soap12:body use="literal" />
+      </output>
+    </operation>
+    <operation name="IsDoneYet">
+      <soap12:operation soapAction="supramap/IsDoneYet" style="document" />
+      <input>
+        <soap12:body use="literal" />
+      </input>
+      <output>
+        <soap12:body use="literal" />
+      </output>
+    </operation>
+    <operation name="GetFile">
+      <soap12:operation soapAction="supramap/GetFile" style="document" />
+      <input>
+        <soap12:body use="literal" />
+      </input>
+      <output>
+        <soap12:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <binding name="PoyServiceHttpGet" type="s0:PoyServiceHttpGet">
+    <http:binding verb="GET" />
+    <operation name="Init">
+      <http:operation location="/Init" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="AddFile">
+      <http:operation location="/AddFile" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="AddTextFile">
+      <http:operation location="/AddTextFile" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="SubmitPoy">
+      <http:operation location="/SubmitPoy" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="IsDoneYet">
+      <http:operation location="/IsDoneYet" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="GetFile">
+      <http:operation location="/GetFile" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+  </binding>
+  <binding name="PoyServiceHttpPost" type="s0:PoyServiceHttpPost">
+    <http:binding verb="POST" />
+    <operation name="Init">
+      <http:operation location="/Init" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="AddFile">
+      <http:operation location="/AddFile" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="AddTextFile">
+      <http:operation location="/AddTextFile" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="SubmitPoy">
+      <http:operation location="/SubmitPoy" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="IsDoneYet">
+      <http:operation location="/IsDoneYet" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="GetFile">
+      <http:operation location="/GetFile" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+  </binding>
+  <service name="PoyService">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Service for running poy on glenn osc super computer</wsdl:documentation>
+    <port name="PoyServiceSoap" binding="s0:PoyServiceSoap">
+      <soap:address location="http://140.254.80.123/PoyService.asmx" />
+    </port>
+    <port name="PoyServiceSoap12" binding="s0:PoyServiceSoap12">
+      <soap12:address location="http://140.254.80.123/PoyService.asmx" />
+    </port>
+    <port name="PoyServiceHttpGet" binding="s0:PoyServiceHttpGet">
+      <http:address location="http://140.254.80.123/PoyService.asmx" />
+    </port>
+    <port name="PoyServiceHttpPost" binding="s0:PoyServiceHttpPost">
+      <http:address location="http://140.254.80.123/PoyService.asmx" />
+    </port>
+  </service>
+</definitions>
