@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoyRunner", "PoyRunner.csproj", "{DEB30B0A-B86D-47AC-897B-2A6F58AE6208}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DEB30B0A-B86D-47AC-897B-2A6F58AE6208}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEB30B0A-B86D-47AC-897B-2A6F58AE6208}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEB30B0A-B86D-47AC-897B-2A6F58AE6208}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEB30B0A-B86D-47AC-897B-2A6F58AE6208}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = PoyRunner.csproj
+	EndGlobalSection
+EndGlobal

@@ -27,7 +27,8 @@ namespace PoyService
                 tableRow.Cells.Add(new HtmlTableCell{InnerText= row["Name"].ToString()} );
                 tableRow.Cells.Add(new HtmlTableCell{InnerText= row["Email"].ToString()} );
                 tableRow.Cells.Add(new HtmlTableCell { InnerText = row["Organization"].ToString() });
-              
+                tableRow.Cells.Add(new HtmlTableCell { InnerText = row["NumberOfJobs"].ToString() });
+              	tableRow.Cells.Add(new HtmlTableCell { InnerText = row["TotalNodeMinutes"].ToString() });
                 if (row["PassPhrase"] == null || string.IsNullOrEmpty(row["PassPhrase"].ToString()))
                 {
                     HtmlTableCell cell = new HtmlTableCell();

@@ -117,15 +117,18 @@ namespace PoyService
         {
             try
             {
+				string output;
                 using (DataAccess dataAccess = new DataAccess())
                 {
                     if (!dataAccess.ValidateToken(jobId, HttpContext.Current.Request.UserHostAddress))
                         return "You have an invalid JobId or you are calling it from an invalid IP address";
 
-                    dataAccess.updateNodeMinutes(jobId, numberOfNodes * (wallTimeMinutes + (wallTimeHours * 60)));
+					output = poy.Submit(jobId, numberOfNodes, wallTimeHours, wallTimeMinutes);
+					if(output=="Success")
+                    	dataAccess.updateNodeMinutes(jobId, numberOfNodes * (wallTimeMinutes + (wallTimeHours * 60)));
                 }
 
-                return poy.Submit(jobId, numberOfNodes, wallTimeHours, wallTimeMinutes);
+                return output;
             }
             catch (Exception ex)
             {

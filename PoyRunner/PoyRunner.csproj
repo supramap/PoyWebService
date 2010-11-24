@@ -82,6 +82,7 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="index.html" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Default.aspx.cs">
@@ -166,11 +167,11 @@
       </FlavorProperties>
     </VisualStudio>
     <MonoDevelop>
-      <Properties VerifyCodeBehindFields="true" VerifyCodeBehindEvents="true" InternalTargetFrameworkVersion="3.5">
+      <Properties InternalTargetFrameworkVersion="3.5" VerifyCodeBehindFields="true" VerifyCodeBehindEvents="true">
         <XspParameters Port="8080" Address="127.0.0.1" SslMode="None" SslProtocol="Default" KeyType="None" CertFile="" KeyFile="" PasswordOptions="None" Password="" Verbose="true" />
         <WebDeployTargets>
-          <Target Name="poyrunner">
-            <FileCopier Handler="MonoDevelop.Deployment.LocalFileCopyHandler" TargetDirectory="/home/jacob/Dropbox/Work/PoyService/DeployPoyRunner" ctype="LocalFileCopyConfiguration" />
+          <Target Name="">
+            <FileCopier Handler="MonoDevelop.Deployment.LocalFileCopyHandler" TargetDirectory="/home/jacob/DeployPoyRunner" ctype="LocalFileCopyConfiguration" />
           </Target>
         </WebDeployTargets>
       </Properties>
@@ -183,4 +184,11 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <WebReferenceUrl Include="http://140.254.80.123/PoyService.asmx?disco">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\PoyService</RelPath>
+      <UpdateFromURL>http://140.254.80.123/PoyService.asmx?disco</UpdateFromURL>
+    </WebReferenceUrl>
+  </ItemGroup>
 </Project>

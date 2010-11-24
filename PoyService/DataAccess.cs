@@ -50,11 +50,10 @@ namespace PoyService
         {
             DataAccess access = new DataAccess();
 
-           MySqlCommand command = new MySqlCommand("select * from User", access.connection);
-//            MySqlCommand command = new MySqlCommand(@"
-//            select UserName, Email, PassPharse, NumberOfJobs, TotalNodeMinutes from User inner join 
-//            (select UserId, count(*) as NumberOfJobs, Sum(NodeMinutes) as TotalNodeMinutes from Job group by UserId) as a
-//            where User.UserId = a.UserId");
+           //MySqlCommand command = new MySqlCommand("select * from User", access.connection);
+ 		   MySqlCommand command = new MySqlCommand(@"select  User.UserId,Name, Email,Organization, PassPhrase, NumberOfJobs, TotalNodeMinutes from User left join 
+           (select UserId, count(*) as NumberOfJobs, Sum(NodeMinutes) as TotalNodeMinutes from Job group by UserId) as a
+           on User.UserId = a.UserId", access.connection);
             
             DataTable data = new DataTable();
             data.Load(command.ExecuteReader());

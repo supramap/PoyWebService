@@ -1,9 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s0="supramap" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" name="PoyService" targetNamespace="supramap" xmlns="http://schemas.xmlsoap.org/wsdl/">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s0="supramap" name="PoyService" targetNamespace="supramap" xmlns="http://schemas.xmlsoap.org/wsdl/">
   <types>
     <xs:schema elementFormDefault="qualified" targetNamespace="supramap" xmlns:xs="http://www.w3.org/2001/XMLSchema">
       <xs:element name="Init">
-        <xs:complexType />
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="passPhase" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
       </xs:element>
       <xs:element name="InitResponse">
         <xs:complexType>
@@ -132,7 +136,9 @@
   <message name="GetFileSoapOut">
     <part name="parameters" element="s0:GetFileResponse" />
   </message>
-  <message name="InitHttpGetIn" />
+  <message name="InitHttpGetIn">
+    <part name="passPhase" type="s:string" />
+  </message>
   <message name="InitHttpGetOut">
     <part name="Body" element="s0:int" />
   </message>
@@ -174,7 +180,9 @@
   <message name="GetFileHttpGetOut">
     <part name="Body" element="s0:base64Binary" />
   </message>
-  <message name="InitHttpPostIn" />
+  <message name="InitHttpPostIn">
+    <part name="passPhase" type="s:string" />
+  </message>
   <message name="InitHttpPostOut">
     <part name="Body" element="s0:int" />
   </message>
@@ -219,8 +227,9 @@
   <portType name="PoyServiceSoap">
     <operation name="Init">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">The 'Init' method basically creates a directory on the super computer it returns a token that must be 
-          used on all subsequent method calls as the jobId parameter. This method currently has no parameters but 
-          might have a userID and a password in the future.</wsdl:documentation>
+          used on all subsequent method calls as the jobId parameter.Note this token will only work with the ipaddress that was used to 
+          call this method. Note it is not enforced but it highly encouraged to use this method over https.
+          a pass prase to use this web service please vist http://glenn-service.bmi.ohio-state.edu/Welcome.aspx</wsdl:documentation>
       <input message="s0:InitSoapIn" />
       <output message="s0:InitSoapOut" />
     </operation>
@@ -272,8 +281,9 @@
   <portType name="PoyServiceSoap12">
     <operation name="Init">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">The 'Init' method basically creates a directory on the super computer it returns a token that must be 
-          used on all subsequent method calls as the jobId parameter. This method currently has no parameters but 
-          might have a userID and a password in the future.</wsdl:documentation>
+          used on all subsequent method calls as the jobId parameter.Note this token will only work with the ipaddress that was used to 
+          call this method. Note it is not enforced but it highly encouraged to use this method over https.
+          a pass prase to use this web service please vist http://glenn-service.bmi.ohio-state.edu/Welcome.aspx</wsdl:documentation>
       <input message="s0:InitSoapIn" />
       <output message="s0:InitSoapOut" />
     </operation>
@@ -325,8 +335,9 @@
   <portType name="PoyServiceHttpGet">
     <operation name="Init">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">The 'Init' method basically creates a directory on the super computer it returns a token that must be 
-          used on all subsequent method calls as the jobId parameter. This method currently has no parameters but 
-          might have a userID and a password in the future.</wsdl:documentation>
+          used on all subsequent method calls as the jobId parameter.Note this token will only work with the ipaddress that was used to 
+          call this method. Note it is not enforced but it highly encouraged to use this method over https.
+          a pass prase to use this web service please vist http://glenn-service.bmi.ohio-state.edu/Welcome.aspx</wsdl:documentation>
       <input message="s0:InitHttpGetIn" />
       <output message="s0:InitHttpGetOut" />
     </operation>
@@ -378,8 +389,9 @@
   <portType name="PoyServiceHttpPost">
     <operation name="Init">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">The 'Init' method basically creates a directory on the super computer it returns a token that must be 
-          used on all subsequent method calls as the jobId parameter. This method currently has no parameters but 
-          might have a userID and a password in the future.</wsdl:documentation>
+          used on all subsequent method calls as the jobId parameter.Note this token will only work with the ipaddress that was used to 
+          call this method. Note it is not enforced but it highly encouraged to use this method over https.
+          a pass prase to use this web service please vist http://glenn-service.bmi.ohio-state.edu/Welcome.aspx</wsdl:documentation>
       <input message="s0:InitHttpPostIn" />
       <output message="s0:InitHttpPostOut" />
     </operation>
@@ -604,7 +616,7 @@
     <operation name="Init">
       <http:operation location="/Init" />
       <input>
-        <mime:content type="application/x-www-form-urlencoded" />
+        <mime:content part="" type="application/x-www-form-urlencoded" />
       </input>
       <output>
         <mime:mimeXml part="Body" />
@@ -613,7 +625,7 @@
     <operation name="AddFile">
       <http:operation location="/AddFile" />
       <input>
-        <mime:content type="application/x-www-form-urlencoded" />
+        <mime:content part="" type="application/x-www-form-urlencoded" />
       </input>
       <output>
         <mime:mimeXml part="Body" />
@@ -622,7 +634,7 @@
     <operation name="AddTextFile">
       <http:operation location="/AddTextFile" />
       <input>
-        <mime:content type="application/x-www-form-urlencoded" />
+        <mime:content part="" type="application/x-www-form-urlencoded" />
       </input>
       <output>
         <mime:mimeXml part="Body" />
@@ -631,7 +643,7 @@
     <operation name="SubmitPoy">
       <http:operation location="/SubmitPoy" />
       <input>
-        <mime:content type="application/x-www-form-urlencoded" />
+        <mime:content part="" type="application/x-www-form-urlencoded" />
       </input>
       <output>
         <mime:mimeXml part="Body" />
@@ -640,7 +652,7 @@
     <operation name="IsDoneYet">
       <http:operation location="/IsDoneYet" />
       <input>
-        <mime:content type="application/x-www-form-urlencoded" />
+        <mime:content part="" type="application/x-www-form-urlencoded" />
       </input>
       <output>
         <mime:mimeXml part="Body" />
@@ -649,7 +661,7 @@
     <operation name="GetFile">
       <http:operation location="/GetFile" />
       <input>
-        <mime:content type="application/x-www-form-urlencoded" />
+        <mime:content part="" type="application/x-www-form-urlencoded" />
       </input>
       <output>
         <mime:mimeXml part="Body" />

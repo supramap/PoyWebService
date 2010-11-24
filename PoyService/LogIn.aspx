@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="LogIn.aspx.cs" Inherits="PoyService.LogIn" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="LogIn.aspx.cs" Inherits="PoyService.LogIn" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -7,6 +7,12 @@
     <title></title>
 </head>
 <body>
+<script type="text/javascript">
+	var a = window.location.substring(5);
+	if(window.location.substring(5)!=https)
+		window.location = 'https://'+window.location.host+window.location.pathname
+	document.write(window.location.substring(5));
+	</script>
     <form id="form1" runat="server">
     <div>
       UserName:<asp:TextBox ID="TextBoxUserName" runat="server"></asp:TextBox><br />

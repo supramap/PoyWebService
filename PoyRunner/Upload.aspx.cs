@@ -22,8 +22,9 @@ namespace PoyRunner
         {
 
             PoyService.PoyService poy = new PoyService.PoyService();
-            int fileId = poy.Init();
+            int fileId = poy.Init("OYWLFJNMRWQLSHCSNHSTSKGSJNKGJJHJFFSJNHEWFWTEVXYJGT");
 
+			if(fileId==-1) Response.Redirect("error.html");
           
             poy.AddFile(fileId, PoyHelper.GetBuffer(FastaFile.PostedFile.InputStream), FastaFile.Value);
             poy.AddFile(fileId, PoyHelper.GetBuffer(SpatialFile.PostedFile.InputStream), SpatialFile.Value);
