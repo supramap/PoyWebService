@@ -671,16 +671,16 @@
   <service name="PoyService">
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Service for running poy on glenn osc super computer</wsdl:documentation>
     <port name="PoyServiceSoap" binding="s0:PoyServiceSoap">
-      <soap:address location="http://140.254.80.123/PoyService.asmx" />
+      <soap:address location="http://glenn-webservice.bmi.ohio-state.edu/PoyService.asmx" />
     </port>
     <port name="PoyServiceSoap12" binding="s0:PoyServiceSoap12">
-      <soap12:address location="http://140.254.80.123/PoyService.asmx" />
+      <soap12:address location="http://glenn-webservice.bmi.ohio-state.edu/PoyService.asmx" />
     </port>
     <port name="PoyServiceHttpGet" binding="s0:PoyServiceHttpGet">
-      <http:address location="http://140.254.80.123/PoyService.asmx" />
+      <http:address location="http://glenn-webservice.bmi.ohio-state.edu/PoyService.asmx" />
     </port>
     <port name="PoyServiceHttpPost" binding="s0:PoyServiceHttpPost">
-      <http:address location="http://140.254.80.123/PoyService.asmx" />
+      <http:address location="http://glenn-webservice.bmi.ohio-state.edu/PoyService.asmx" />
     </port>
   </service>
 </definitions>

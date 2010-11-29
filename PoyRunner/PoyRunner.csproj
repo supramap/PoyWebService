@@ -68,7 +68,6 @@
     <Content Include="SubmitPoyButton.aspx" />
     <Content Include="Test.aspx" />
     <Content Include="Upload.aspx" />
-    <None Include="Web References\PoyService\PoyService.disco" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -77,12 +76,13 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <None Include="Web References\PoyService\PoyService.wsdl" />
-    <None Include="Web References\PoyService\Reference.map">
+    <Content Include="index.html" />
+    <None Include="Web References\glenn-webservice.bmi.ohio-state.edu\PoyService.wsdl" />
+    <None Include="Web References\glenn-webservice.bmi.ohio-state.edu\PoyService.disco" />
+    <None Include="Web References\glenn-webservice.bmi.ohio-state.edu\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="index.html" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Default.aspx.cs">
@@ -137,9 +137,7 @@
     <Compile Include="Upload.aspx.designer.cs">
       <DependentUpon>Upload.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Web References\PoyService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
+    <Compile Include="Web References\glenn-webservice.bmi.ohio-state.edu\Reference.cs">
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -185,10 +183,13 @@
   </Target>
   -->
   <ItemGroup>
-    <WebReferenceUrl Include="http://140.254.80.123/PoyService.asmx?disco">
+    <WebReferenceUrl Include="http://glenn-webservice.bmi.ohio-state.edu/PoyService.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\PoyService</RelPath>
-      <UpdateFromURL>http://140.254.80.123/PoyService.asmx?disco</UpdateFromURL>
+      <RelPath>Web References\glenn-webservice.bmi.ohio-state.edu</RelPath>
+      <UpdateFromURL>http://glenn-webservice.bmi.ohio-state.edu/PoyService.asmx</UpdateFromURL>
     </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References" />
   </ItemGroup>
 </Project>

@@ -33,7 +33,7 @@ namespace PoyRunner.PoyService {
         private System.Threading.SendOrPostCallback GetFileOperationCompleted;
         
         public PoyService() {
-            this.Url = "http://140.254.80.123/PoyService.asmx";
+            this.Url = "http://glenn-webservice.bmi.ohio-state.edu/PoyService.asmx";
         }
         
         public PoyService(string url) {
