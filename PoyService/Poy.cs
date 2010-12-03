@@ -161,8 +161,6 @@ namespace PoyService
             Sftp sftp = new Sftp(HostName, UserName, Password);
             sftp.Connect();
 
-            string dir = string.Format("{0}batch.job",tempDir, jobId);
-
             sftp.Get(
                 string.Format(@"poy_service/{1}/{0}", fileName, jobId,DataPath),
                 string.Format(@"{0}{1}",tempDir, fileName)
@@ -173,6 +171,22 @@ namespace PoyService
             fileStream.Read(filedata, 0, (int)fileStream.Length);
 
             return filedata;
+        }
+		
+		public string getTextFile(int jobId, string fileName)
+        {
+            if (fileName.Contains("/")) return null; //fail for securety
+            //if (fileName.Contains(' ')) return null; //fail for securety
+
+            Sftp sftp = new Sftp(HostName, UserName, Password);
+            sftp.Connect();
+
+            sftp.Get(
+                string.Format(@"poy_service/{1}/{0}", fileName, jobId,DataPath),
+                string.Format(@"{0}{1}",tempDir, fileName)
+                );
+			
+           return File.ReadAllText(string.Format(@"{0}{1}", tempDir, fileName));
         }
 
         private SshStream getShell()

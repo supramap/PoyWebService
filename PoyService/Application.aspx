@@ -9,12 +9,12 @@
 <body>
     <form id="form1" runat="server">
     <div  align="center">
-    <h2>Hello and welcome to the Poy Web Service.</h2>
-     <h4> Please fill out the following details and after we after we review your application an email will be sent out with further instructions.</h4><br/><br/>
+    <h2>Welcome to the Poy Web Service.</h2>
+     <h4> Please fill out the following details.  After we review your application we will send you and  email with further instructions.  Thanks.</h4><br/><br/>
      <table>
      <tr><td><span> Name: </span></td><td> <asp:TextBox ID="Name" runat="server"></asp:TextBox> </td><td> <asp:RequiredFieldValidator ControlToValidate="Name" ID="RequiredFieldValidator1" runat="server" ErrorMessage="Required"/></td></tr>
       <tr><td><span> Email: </span> </td><td><asp:TextBox ID="Email" runat="server"></asp:TextBox></td><td><asp:RegularExpressionValidator ControlToValidate="Email" ID="RegularExpressionValidator1" runat="server" ValidationExpression="[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}" ErrorMessage="Unsupported Email Format"/></td></tr>
-      <tr><td><span> Organzation: </span></td><td> <asp:TextBox ID="Organzation" runat="server"></asp:TextBox> </td><td> <asp:RequiredFieldValidator ControlToValidate="Organzation" ID="RequiredFieldValidator2" runat="server" ErrorMessage="Required"/></td></tr>
+      <tr><td><span> Organization: </span></td><td> <asp:TextBox ID="Organzation" runat="server"></asp:TextBox> </td><td> <asp:RequiredFieldValidator ControlToValidate="Organzation" ID="RequiredFieldValidator2" runat="server" ErrorMessage="Required"/></td></tr>
      </table>
      <span> Give a brief description of the application you want to build with the Poy Web Service (optional). </span><br/>
      <asp:TextBox ID="description" runat="server" Height="100px" Width="800px" Wrap="true" TextMode="MultiLine"  ></asp:TextBox><br/>

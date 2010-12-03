@@ -80,9 +80,6 @@
     <Content Include="ApplicationSubmited.htm" />
     <Content Include="LogIn.aspx" />
     <Content Include="PoyService.asmx" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="index.html" />
   </ItemGroup>
   <ItemGroup>

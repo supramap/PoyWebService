@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-//using System.Linq;
 using System.Web;
 using System.Web.Services;
 using System.IO;
@@ -20,7 +19,7 @@ namespace PoyService
         [WebMethod(Description = @"The 'Init' method basically creates a directory on the super computer it returns a token that must be 
           used on all subsequent method calls as the jobId parameter.Note this token will only work with the ipaddress that was used to 
           call this method. Note it is not enforced but it highly encouraged to use this method over https.
-          a pass prase to use this web service please vist http://glenn-service.bmi.ohio-state.edu/Welcome.aspx")]
+          to get a pass prase to use this web service please vist http://glenn-webservice.bmi.ohio-state.edu/Application.aspx")]
         
         public int Init(string passPhase)
         {
@@ -161,6 +160,18 @@ namespace PoyService
             }
 
             return poy.getFile(jobId,fileName);
+        }
+		
+		  [WebMethod(Description = @"The basically 'GetFile' but returns a string instead of binary data should only be used on test files")]
+        public string GetTextFile(int jobId, string fileName)
+        {
+            using (DataAccess dataAccess = new DataAccess())
+            {
+                if (!dataAccess.ValidateToken(jobId, HttpContext.Current.Request.UserHostAddress))
+                    return null;
+            }
+
+            return poy.getTextFile(jobId,fileName);
         }
     }
 }
