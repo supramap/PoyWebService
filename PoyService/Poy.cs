@@ -152,6 +152,18 @@ namespace PoyService
             else
                 return false;
         }
+		
+		public bool Delete(int jobId)
+		{
+			SshStream shell = getShell();
+            shell.Write(string.Format("cd {1}{0} ;",  jobId.ToString(),DataPath));
+			shell.Write(string.Format("rm * ;"));
+			shell.Write(string.Format("cd \\.. ;",  jobId.ToString(),DataPath));
+			shell.Write(string.Format("rmdir {0} ;", jobId.ToString()));
+            shell.Write("qsub batch.job");
+			
+			return true;
+		}
 
         public byte[] getFile(int jobId, string fileName)
         {

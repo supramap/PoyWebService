@@ -52,7 +52,7 @@ namespace PoyService
                         return "You have an invalid JobId or you are calling it from an invalid IP address";
                 }
 
-                poy.AddFile(jobId, fileData, fileName);
+                poy.AddFile(jobId, fileData, fileName.Replace(" ","\\ "));
                 return "Success";
               
             }
@@ -74,7 +74,7 @@ namespace PoyService
                         return "You have an invalid JobId or you are calling it from an invalid IP address";
                 }
 
-                poy.AddTextFile(jobId, fileData, fileName);
+                poy.AddTextFile(jobId, fileData, fileName.Replace(" ","\\ "));
                 return "Success";
                 
             }
@@ -140,7 +140,6 @@ namespace PoyService
         done yet. ")]
         public bool IsDoneYet(int jobId)
         {
-
             using (DataAccess dataAccess = new DataAccess())
             {
                 if (!dataAccess.ValidateToken(jobId, HttpContext.Current.Request.UserHostAddress))
@@ -149,6 +148,21 @@ namespace PoyService
 
             return poy.isDone(jobId); 
         }
+		
+		[WebMethod(Description = @"This method removes all files on the super computer for this job")]
+		public bool DeleteJob(int jobId)
+		{
+			using (DataAccess dataAccess = new DataAccess())
+            {
+                if (!dataAccess.ValidateToken(jobId, HttpContext.Current.Request.UserHostAddress))
+                    return true;
+				
+				dataAccess.Inactivate(jobId); 
+				
+            }
+
+            return poy.Delete(jobId); 
+		}
 
         [WebMethod(Description = @"The last method 'GetFile' basically is used to retrieve the output files specified in the POY script. It is called once per file. ")]
         public byte[] GetFile(int jobId, string fileName)
@@ -157,9 +171,11 @@ namespace PoyService
             {
                 if (!dataAccess.ValidateToken(jobId, HttpContext.Current.Request.UserHostAddress))
                     return null;
+				
+				
             }
 
-            return poy.getFile(jobId,fileName);
+            return poy.getFile(jobId,fileName.Replace(" ","\\ "));
         }
 		
 		  [WebMethod(Description = @"The basically 'GetFile' but returns a string instead of binary data should only be used on test files")]
@@ -171,7 +187,7 @@ namespace PoyService
                     return null;
             }
 
-            return poy.getTextFile(jobId,fileName);
+            return poy.getTextFile(jobId,fileName.Replace(" ","\\ "));
         }
     }
 }

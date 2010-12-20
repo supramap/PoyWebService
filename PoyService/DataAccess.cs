@@ -89,6 +89,16 @@ namespace PoyService
 
             return command.ExecuteScalar().ToString()=="1";
         }
+		
+		public void Inactivate(int jobtoken)
+		{
+			 MySqlCommand command = new MySqlCommand(string.Format(
+                "UPDATE PoyService.Job SETactive =0 where JobId = 1{0};"
+                , jobtoken), connection);
+
+            command.ExecuteNonQuery();
+			return;
+		}
 
         public void Dispose()
         {
@@ -97,10 +107,10 @@ namespace PoyService
 
 
 
-        public void updateNodeMinutes(int jobtocken, int nodeMinutes)
+        public void updateNodeMinutes(int jobtoken, int nodeMinutes)
         {
              MySqlCommand command = new MySqlCommand(string.Format(
-             "update Job set NodeMinutes = NodeMinutes +{0} where JobToken ={1};",nodeMinutes,jobtocken),connection);
+             "update Job set NodeMinutes = NodeMinutes +{0} where JobToken ={1};",nodeMinutes,jobtoken),connection);
             command.ExecuteNonQuery();
           
         }
@@ -122,14 +132,6 @@ namespace PoyService
 
             command.ExecuteNonQuery();
             return passPhrase.ToString();
-            //command = new MySqlCommand(string.Format(   
-            //    "select PassPhrase from User where UserId = {0};"
-            //    ,userId),connection);
-
-            //return command.ExecuteScalar().ToString();
         }
-
-
-    
     }
 }
