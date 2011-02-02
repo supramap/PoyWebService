@@ -83,7 +83,7 @@ namespace PoyService
         public string Submit(int jobId, int numberOfNodes, int wallTimeHours, int wallTimeMinutes)
         {
             if (wallTimeMinutes >= 60) return "Minutes must be less then 60";
-            if (wallTimeHours >= 3) return "Hours must be less then 10";
+            if (wallTimeHours >= 99) return "Hours must be less then 99";
             if (numberOfNodes >= 101) return "Number of Nodes must be less then 101";
             if (numberOfNodes < 1) return "you need at least 1 node";
             if (wallTimeHours < 0 || wallTimeMinutes < 0) return "We currently don't support time travel at this time";
@@ -160,7 +160,7 @@ namespace PoyService
 			shell.Write(string.Format("rm * ;"));
 			shell.Write(string.Format("cd \\.. ;",  jobId.ToString(),DataPath));
 			shell.Write(string.Format("rmdir {0} ;", jobId.ToString()));
-            shell.Write("qsub batch.job");
+            //shell.Write("qdel batch.job");
 			
 			return true;
 		}

@@ -9,7 +9,8 @@ namespace PoyService
     /// <summary>
     /// Summary description for Service1
     /// </summary>
-    [WebService(Namespace = "supramap", Description = "Service for running poy on glenn osc super computer")]
+    [WebService(Namespace = "supramap", Description = "Service for running poy on glenn osc super computer" +
+    	"Note: there is a bug and the method won't work if there is a space in any of the file names")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     public class PoyService : System.Web.Services.WebService
@@ -41,6 +42,7 @@ namespace PoyService
          generate the POY scripts this places more work in there hands but 
          also give them great flexibility to do design web apps that can 
          use POY for anything.
+		Note: there is a bug and the method won't work if there is a space in any of the file names
 		")]
         public string AddFile(int jobId, byte[] fileData,string fileName)
         {
@@ -52,7 +54,7 @@ namespace PoyService
                         return "You have an invalid JobId or you are calling it from an invalid IP address";
                 }
 
-                poy.AddFile(jobId, fileData, fileName.Replace(" ","\\ "));
+                poy.AddFile(jobId, fileData, fileName);
                 return "Success";
               
             }
@@ -74,7 +76,7 @@ namespace PoyService
                         return "You have an invalid JobId or you are calling it from an invalid IP address";
                 }
 
-                poy.AddTextFile(jobId, fileData, fileName.Replace(" ","\\ "));
+                poy.AddTextFile(jobId, fileData, fileName);
                 return "Success";
                 
             }
@@ -175,7 +177,7 @@ namespace PoyService
 				
             }
 
-            return poy.getFile(jobId,fileName.Replace(" ","\\ "));
+            return poy.getFile(jobId,fileName);
         }
 		
 		  [WebMethod(Description = @"The basically 'GetFile' but returns a string instead of binary data should only be used on test files")]
@@ -187,7 +189,7 @@ namespace PoyService
                     return null;
             }
 
-            return poy.getTextFile(jobId,fileName.Replace(" ","\\ "));
+            return poy.getTextFile(jobId,fileName);
         }
     }
 }

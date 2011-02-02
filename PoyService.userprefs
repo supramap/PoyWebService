@@ -1,22 +1,21 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" ctype="Workspace" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="PoyService/PoyService.asmx.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PoyService/DataAccess.cs" ctype="Workbench">
     <Files>
-      <File FileName="PoyService/Poy.cs" Line="153" Column="30" />
-      <File FileName="PoyService/PoyService.asmx.cs" Line="150" Column="10" />
+      <File FileName="PoyService/Poy.cs" Line="197" Column="52" />
+      <File FileName="PoyService/PoyService.asmx.cs" Line="124" Column="42" />
       <File FileName="PoyRunner/Upload.aspx.cs" Line="12" Column="20" />
-      <File FileName="PoyService/DataAccess.cs" Line="91" Column="10" />
       <File FileName="PoyService/ApplicationSubmited.htm" Line="1" Column="1" />
-      <File FileName="PoyService/Application.aspx.cs" Line="1" Column="1" />
-      <File FileName="PoyService/Email.cs" Line="3" Column="18" />
-      <File FileName="PoyService/Admin.aspx.cs" Line="45" Column="11" />
       <File FileName="PoyService/Admin.aspx" Line="16" Column="116" />
       <File FileName="PoyService/LogIn.aspx.cs" Line="1" Column="1" />
       <File FileName="PoyService/LogIn.aspx" Line="8" Column="8" />
       <File FileName="PoyRunner/SubmitPoyButton.aspx.cs" Line="26" Column="1" />
       <File FileName="PoyService/index.html" Line="8" Column="8" />
       <File FileName="PoyRunner/Loading.aspx.cs" Line="8" Column="27" />
-      <File FileName="PoyRunner/PoyHelper.cs" Line="37" Column="73" />
+      <File FileName="../Deploy/Admin.aspx" Line="1" Column="1" />
+      <File FileName="../Deploy/Application.aspx" Line="1" Column="1" />
+      <File FileName="../Deploy/LogIn.aspx" Line="1" Column="1" />
+      <File FileName="PoyService/DataAccess.cs" Line="93" Column="16" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -27,10 +26,9 @@
           <Node name="PoyService" expanded="True">
             <Node name="Admin.aspx" expanded="True" />
             <Node name="Application.aspx" expanded="True" />
+            <Node name="DataAccess.cs" selected="True" />
             <Node name="LogIn.aspx" expanded="True" />
-            <Node name="PoyService.asmx" expanded="True">
-              <Node name="PoyService.asmx.cs" selected="True" />
-            </Node>
+            <Node name="PoyService.asmx" expanded="True" />
           </Node>
         </State>
       </Pad>

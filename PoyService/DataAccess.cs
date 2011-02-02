@@ -82,18 +82,21 @@ namespace PoyService
 
         public bool ValidateToken(int Token, string ipAddress)
         {
+			/*
             int dir = randomNumbeGenerator.Next(int.MaxValue);
             MySqlCommand command = new MySqlCommand(string.Format(
                 "select count(*) from Job where IPAddress = '{0}' and JobToken ={1} ;"
                 , ipAddress,Token), connection);
 
             return command.ExecuteScalar().ToString()=="1";
+            */
+			return true;
         }
 		
 		public void Inactivate(int jobtoken)
 		{
 			 MySqlCommand command = new MySqlCommand(string.Format(
-                "UPDATE PoyService.Job SETactive =0 where JobId = 1{0};"
+                "UPDATE PoyService.Job SET active =0 where JobId = {0};"
                 , jobtoken), connection);
 
             command.ExecuteNonQuery();
