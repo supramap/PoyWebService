@@ -6,19 +6,12 @@ using Tamir.SharpSsh.jsch;
 using System.IO;
 using System.Text;
 
-
 namespace PoyService
 {
     public class Poy
     {
         public static readonly string tempDir;
         
-		//public const string HostName = "glenn.osc.edu";
-        //public const string UserName = "osu6013";
-        //public const string Password = "C114154N"; 
-		//public const string PoyPath = "/nfs/17/osu6013/bin:/nfs/17/osu6013/lib";
-		//public const string DataPath= "/nfs/17/osu6013/poy_service/";
-		
 		public const string HostName = "glenn.osc.edu";
 		public const string UserName = "supramap";
         public const string Password = "B633077S"; 
@@ -27,14 +20,37 @@ namespace PoyService
 		
         static Poy()
         {
+			//d
             if (System.IO.Path.DirectorySeparatorChar == '\\')
                 tempDir = @"C:\temp\";
             else tempDir = @"/var/tmp/";
         }
 
         System.Random randomNumbeGenerator = new System.Random();
-        //Glenn glenn = new Glenn();
 
+		private SshStream getShell()
+        {
+            SshStream ssh = new SshStream(HostName, UserName, Password);
+            ssh.Prompt = "#";
+            ssh.RemoveTerminalEmulationCharacters = true;
+            return ssh;
+        }
+
+        private SshExec getCommander()
+        {
+            //using Tamir.SharpSsh;
+            Tamir.SharpSsh.SshExec e = new SshExec(HostName, UserName, Password);
+            e.Connect();
+            return e;
+        }
+
+        private Sftp getSftp()
+        {
+            Sftp sftp = new Sftp(HostName, UserName, Password);
+            sftp.Connect();
+            return sftp;
+        }
+		
         public int Init(int dir)
         {
             SshStream ssh = getShell();
@@ -52,10 +68,10 @@ namespace PoyService
             sftp.Connect();
             File.WriteAllText(dir,fileData);
             sftp.Put(dir);
-            SshStream shell = getShell();
+            //I could not Ftp to put the files in the right directory so I put them in the base and moved them with a ssh command
+			SshStream shell = getShell();
             shell.Write(string.Format("mv {0} {2}{1}/{0}", filename, jobId.ToString(),DataPath));
            
-            
             File.Delete(dir);
             return true;
         }
@@ -72,10 +88,9 @@ namespace PoyService
             File.WriteAllBytes(dir, (byte[]) fileData);
             
             sftp.Put(dir);
+			//I could not Ftp to put the files in the right directory so I put them in the base and moved them with a ssh command
             SshStream shell = getShell();
             shell.Write(string.Format("mv {0} {2}{1}/{0}", filename, jobId.ToString(),DataPath));
-           
-            
             File.Delete(dir);
             return true;
         }
@@ -114,6 +129,7 @@ namespace PoyService
 
             sftp.Put(dir);
             sftp.Close();
+			//I could not Ftp to put the files in the right directory so I put them in the base and moved them with a ssh command
             SshStream shell = getShell();
             shell.Write(string.Format("mv {0} {2}{1}/{0} ;", "batch.job", jobId.ToString(),DataPath));
             shell.Write(string.Format("cd {1}{0} ;",  jobId.ToString(),DataPath));
@@ -181,7 +197,31 @@ namespace PoyService
             FileStream fileStream = File.OpenRead(string.Format(@"{0}{1}", tempDir, fileName));
             byte[] filedata = new byte[(int)fileStream.Length];
             fileStream.Read(filedata, 0, (int)fileStream.Length);
+			File.Delete(string.Format(@"{0}{1}", tempDir, fileName));
+            return filedata;
+        }
+		
+		public byte[] getZipFile(int jobId, string fileName)
+        {
+            if (fileName.Contains("/")) return null; //fail for securety
+            //if (fileName.Contains(' ')) return null; //fail for securety
 
+            Sftp sftp = getSftp();
+			SshStream shell = getShell();
+			
+			//zip <sam_copy.poy_output_2 >out.zip
+			shell.Write(string.Format(@"cd poy_service/{1} ; zip {0}.zip {0}", fileName, jobId ));
+            sftp.Get(
+                string.Format(@"poy_service/{1}/{0}.zip", fileName, jobId,DataPath),
+                string.Format(@"{0}{1}",tempDir, fileName)
+                );
+			shell.Write(string.Format(@"rm poy_service/{1}/{0}.zip", fileName, jobId ));
+			
+
+            FileStream fileStream = File.OpenRead(string.Format(@"{0}{1}", tempDir, fileName));
+            byte[] filedata = new byte[(int)fileStream.Length];
+            fileStream.Read(filedata, 0, (int)fileStream.Length);
+			File.Delete(string.Format(@"{0}{1}", tempDir, fileName));
             return filedata;
         }
 		
@@ -197,31 +237,9 @@ namespace PoyService
                 string.Format(@"poy_service/{1}/{0}", fileName, jobId,DataPath),
                 string.Format(@"{0}{1}",tempDir, fileName)
                 );
-			
-           return File.ReadAllText(string.Format(@"{0}{1}", tempDir, fileName));
-        }
-
-        private SshStream getShell()
-        {
-            SshStream ssh = new SshStream(HostName, UserName, Password);
-            ssh.Prompt = "#";
-            ssh.RemoveTerminalEmulationCharacters = true;
-            return ssh;
-        }
-
-        private SshExec getCommander()
-        {
-            //using Tamir.SharpSsh;
-            Tamir.SharpSsh.SshExec e = new SshExec(HostName, UserName, Password);
-            e.Connect();
-            return e;
-        }
-
-        private Sftp getSftp()
-        {
-            Sftp sftp = new Sftp(HostName, UserName, Password);
-            sftp.Connect();
-            return sftp;
+		   string output = File.ReadAllText(string.Format(@"{0}{1}", tempDir, fileName));
+		   File.Delete(string.Format(@"{0}{1}", tempDir, fileName));
+           return output;
         }
     }
 }

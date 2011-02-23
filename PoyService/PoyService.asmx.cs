@@ -180,6 +180,20 @@ namespace PoyService
             return poy.getFile(jobId,fileName);
         }
 		
+		[WebMethod(Description = @"Another method to get a binary object. this one just zips up the file first")]
+        public byte[] GetZipedFile(int jobId, string fileName)
+        {
+            using (DataAccess dataAccess = new DataAccess())
+            {
+                if (!dataAccess.ValidateToken(jobId, HttpContext.Current.Request.UserHostAddress))
+                    return null;
+				
+				
+            }
+
+            return poy.getZipFile(jobId,fileName);
+        }
+		
 		  [WebMethod(Description = @"The basically 'GetFile' but returns a string instead of binary data should only be used on test files")]
         public string GetTextFile(int jobId, string fileName)
         {

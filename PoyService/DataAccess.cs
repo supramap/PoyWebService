@@ -82,6 +82,8 @@ namespace PoyService
 
         public bool ValidateToken(int Token, string ipAddress)
         {
+			//I used make sure that A job started and finished on the same ip address for 
+			
 			/*
             int dir = randomNumbeGenerator.Next(int.MaxValue);
             MySqlCommand command = new MySqlCommand(string.Format(
