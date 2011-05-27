@@ -15,26 +15,44 @@ namespace PoyService
     [System.ComponentModel.ToolboxItem(false)]
     public class PoyService : System.Web.Services.WebService
     {
-        public Poy poy= new Poy();
+        //public Poy poy = new Poy();
+		 public Poy Glenn = new Poy(SuperComputer.GetGlenn());
+		 public Poy Superdev = new Poy( SuperComputer.GetDansClustor());
 
         [WebMethod(Description = @"The 'Init' method basically creates a directory on the super computer it returns a token that must be 
           used on all subsequent method calls as the jobId parameter.Note this token will only work with the ipaddress that was used to 
           call this method. Note it is not enforced but it highly encouraged to use this method over https.
-          to get a pass prase to use this web service please vist http://glenn-webservice.bmi.ohio-state.edu/Application.aspx")]
+          to get a pass prase to use this web service please vist http://glenn-webservice.bmi.ohio-state.edu/Application.aspx
+          The current to option for resource are Glenn and supradev")]
         
-        public int Init(string passPhase)
+        public int Init(string passPhase,string resource)
         {
             int Token;
             using (DataAccess dataAccess = new DataAccess())
             {
-                Token = dataAccess.getToken(passPhase, HttpContext.Current.Request.UserHostAddress);
+                Token = dataAccess.getToken(passPhase, HttpContext.Current.Request.UserHostAddress,resource);
             }
             if (Token == -1) return -1;
             
-            poy.Init(Token);
+            SPHash.getValue(Token).Init(Token);
             return Token;
         }
 
+		[WebMethod(Description = @"This method removes all files on the super computer for this job")]
+		public bool DeleteJob(int jobId)
+		{
+			using (DataAccess dataAccess = new DataAccess())
+            {
+                if (!dataAccess.ValidateToken(jobId, HttpContext.Current.Request.UserHostAddress))
+                    return true;
+				
+				dataAccess.Inactivate(jobId); 
+				
+            }
+
+            return SPHash.getValue(jobId).Delete(jobId); 
+		}
+		
         [WebMethod(Description = @"The 'AddFile' method is used to basically put a file on the super 
          computer. It should be called once to a load a .poy script. Plus 
          it should be called for each file that the POY script references. 
@@ -54,7 +72,7 @@ namespace PoyService
                         return "You have an invalid JobId or you are calling it from an invalid IP address";
                 }
 
-                poy.AddFile(jobId, fileData, fileName);
+                SPHash.getValue(jobId).AddFile(jobId, fileData, fileName);
                 return "Success";
               
             }
@@ -76,7 +94,7 @@ namespace PoyService
                         return "You have an invalid JobId or you are calling it from an invalid IP address";
                 }
 
-                poy.AddTextFile(jobId, fileData, fileName);
+                SPHash.getValue(jobId).AddTextFile(jobId, fileData, fileName);
                 return "Success";
                 
             }
@@ -86,7 +104,48 @@ namespace PoyService
             }
         }
 
-        /// <summary>
+        [WebMethod(Description = @"The last method 'GetFile' basically is used to retrieve the output files specified in the POY script. It is called once per file. ")]
+        public byte[] GetFile(int jobId, string fileName)
+        {
+            using (DataAccess dataAccess = new DataAccess())
+            {
+                if (!dataAccess.ValidateToken(jobId, HttpContext.Current.Request.UserHostAddress))
+                    return null;
+				
+				
+            }
+
+            return SPHash.getValue(jobId).getFile(jobId,fileName);
+        }
+		
+		[WebMethod(Description = @"Another method to get a binary object. this one just compresses the file first. The 3rd parmater compressionType supports 2 values for now 'zip' and 'tar.gz'")]
+        public byte[] GetZipedFile(int jobId, string fileName,string compressionType )
+        {
+            using (DataAccess dataAccess = new DataAccess())
+            {
+                if (!dataAccess.ValidateToken(jobId, HttpContext.Current.Request.UserHostAddress))
+                    return null;
+				
+				
+            }
+
+            return SPHash.getValue(jobId).getCompressedFile(jobId,fileName,compressionType);
+        }
+		
+		  [WebMethod(Description = @"The basically 'GetFile' but returns a string instead of binary data should only be used on text files")]
+        public string GetTextFile(int jobId, string fileName)
+        {
+            using (DataAccess dataAccess = new DataAccess())
+            {
+                if (!dataAccess.ValidateToken(jobId, HttpContext.Current.Request.UserHostAddress))
+                    return null;
+            }
+
+            return SPHash.getValue(jobId).getTextFile(jobId,fileName);
+        }
+		
+		
+		 /// <summary>
         /// The 'SubmitSmallPoy' method start a job on the super computer 
         /// that start the POY job. When running a job on a super computer 
         /// you have to request a what resource you need like how many 
@@ -114,7 +173,7 @@ namespace PoyService
          Also we could extend the web service by adding new method that 
          are similar to this one but only use other back-end Linux tools. 
          These methods could take advantage of all of the existing infrastructure. " )]
-        public string SubmitPoy(int jobId, int numberOfNodes,int wallTimeHours, int wallTimeMinutes)
+        public string SubmitPoy(int jobId, int numberOfNodes,int wallTimeHours, int wallTimeMinutes, string postBackURL)
         {
             try
             {
@@ -124,7 +183,7 @@ namespace PoyService
                     if (!dataAccess.ValidateToken(jobId, HttpContext.Current.Request.UserHostAddress))
                         return "You have an invalid JobId or you are calling it from an invalid IP address";
 
-					output = poy.Submit(jobId, numberOfNodes, wallTimeHours, wallTimeMinutes);
+					output = SPHash.getValue(jobId).Submit(jobId, numberOfNodes, wallTimeHours, wallTimeMinutes,postBackURL);
 					if(output=="Success")
                     	dataAccess.updateNodeMinutes(jobId, numberOfNodes * (wallTimeMinutes + (wallTimeHours * 60)));
                 }
@@ -137,10 +196,36 @@ namespace PoyService
             }
         }
 
-        [WebMethod(Description = @"  The client must periodically poll the service after it submits its job so it knows when its job is done. 
+      
+		
+		[WebMethod]
+		public string SubmitGenPhen(int jobId, string jobName,string treeName,string postBackURL)
+        {
+            try
+            {
+				string output;
+                using (DataAccess dataAccess = new DataAccess())
+                {
+                    if (!dataAccess.ValidateToken(jobId, HttpContext.Current.Request.UserHostAddress))
+                        return "You have an invalid JobId or you are calling it from an invalid IP address";
+
+					output = SPHash.getValue(jobId).SubmitGenPhen(jobId, jobName,treeName,postBackURL);
+					//if(output=="Success")
+                    	//dataAccess.updateNodeMinutes(jobId, numberOfNodes * (wallTimeMinutes + (wallTimeHours * 60)));
+                }
+
+                return output;
+            }
+            catch (Exception ex)
+            {
+                return "Error: " + ex.Message + ex.StackTrace;
+            }
+        }
+		
+		  [WebMethod(Description = @"  The client must periodically poll the service after it submits its job so it knows when its job is done. 
         The 'IsDoneYet' method does just that and returns true if the job is done and false if the job is not 
-        done yet. ")]
-        public bool IsDoneYet(int jobId)
+        done yet. The command value can ether be 'poy' or 'GenPhen' ")]
+        public bool IsDoneYet(int jobId, string command)
         {
             using (DataAccess dataAccess = new DataAccess())
             {
@@ -148,62 +233,20 @@ namespace PoyService
                     return true;
             }
 
-            return poy.isDone(jobId); 
+            return SPHash.getValue(jobId).isDone(jobId,command); 
         }
 		
-		[WebMethod(Description = @"This method removes all files on the super computer for this job")]
-		public bool DeleteJob(int jobId)
-		{
-			using (DataAccess dataAccess = new DataAccess())
-            {
-                if (!dataAccess.ValidateToken(jobId, HttpContext.Current.Request.UserHostAddress))
-                    return true;
-				
-				dataAccess.Inactivate(jobId); 
-				
-            }
-
-            return poy.Delete(jobId); 
-		}
-
-        [WebMethod(Description = @"The last method 'GetFile' basically is used to retrieve the output files specified in the POY script. It is called once per file. ")]
-        public byte[] GetFile(int jobId, string fileName)
-        {
-            using (DataAccess dataAccess = new DataAccess())
-            {
-                if (!dataAccess.ValidateToken(jobId, HttpContext.Current.Request.UserHostAddress))
-                    return null;
-				
-				
-            }
-
-            return poy.getFile(jobId,fileName);
-        }
+//		   [WebMethod]
+//        public bool IsGenPhenDoneYet(int jobId)
+//        {
+//            using (DataAccess dataAccess = new DataAccess())
+//            {
+//                if (!dataAccess.ValidateToken(jobId, HttpContext.Current.Request.UserHostAddress))
+//                    return true;
+//            }
+//
+//            return SPHash.getValue(jobId).isGenPhenDone(jobId); 
+//        }
 		
-		[WebMethod(Description = @"Another method to get a binary object. this one just zips up the file first")]
-        public byte[] GetZipedFile(int jobId, string fileName)
-        {
-            using (DataAccess dataAccess = new DataAccess())
-            {
-                if (!dataAccess.ValidateToken(jobId, HttpContext.Current.Request.UserHostAddress))
-                    return null;
-				
-				
-            }
-
-            return poy.getZipFile(jobId,fileName);
-        }
-		
-		  [WebMethod(Description = @"The basically 'GetFile' but returns a string instead of binary data should only be used on test files")]
-        public string GetTextFile(int jobId, string fileName)
-        {
-            using (DataAccess dataAccess = new DataAccess())
-            {
-                if (!dataAccess.ValidateToken(jobId, HttpContext.Current.Request.UserHostAddress))
-                    return null;
-            }
-
-            return poy.getTextFile(jobId,fileName);
-        }
     }
 }

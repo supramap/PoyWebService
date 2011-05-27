@@ -14,7 +14,6 @@ namespace PoyService
         public DataAccess()
         {
             connection = new MySqlConnection("Server=140.254.80.125;Database=PoyService;Uid=poyman;Pwd=poyman$;Pooling=false;");
-			//connection.
             connection.Open();
         }
 
@@ -36,16 +35,6 @@ namespace PoyService
             command.ExecuteNonQuery();
         }
 
-        //public string getPassPhrase(string userName)
-        //{
-        //    MySqlCommand command = new MySqlCommand(string.Format(
-        //        "select PassPhrase from User where UserName='{0}';"
-        //        , userName), connection);
-
-        //    return command.ExecuteScalar().ToString();
-        //}
-
-
         public static DataTable getuserData()
         {
             DataAccess access = new DataAccess();
@@ -61,23 +50,33 @@ namespace PoyService
         }
 
 
-        public int getToken(string passPhrase, string ipAddress)
+        public int getToken(string passPhrase, string ipAddress, string resource)
         {
             MySqlCommand command = new MySqlCommand(string.Format(
                 "select UserId from User where PassPhrase='{0}';"
                 , passPhrase), connection);
             
             object o= command.ExecuteScalar();
-			//Console.WriteLine(command.CommandText+"  returns "+ o.ToString());
+			
             if(o==null || string.IsNullOrEmpty(o.ToString())) return -1;
 
             int dir = randomNumbeGenerator.Next(int.MaxValue);
             
             command = new MySqlCommand(string.Format(
-            "insert into Job (JobToken, IPAddress,UserId) values({0},'{1}',{2});"
-            ,dir,ipAddress,o.ToString()),connection);
+            "insert into Job (JobToken, IPAddress,UserId,resource) values({0},'{1}',{2},'{3}');"
+            ,dir,ipAddress,o.ToString(), resource),connection);
             command.ExecuteScalar();
             return dir;
+        }
+		
+		 public string getResourceIdForToken(int Token)
+        {
+            MySqlCommand command = new MySqlCommand(string.Format(
+                "select resource from Job where JobToken='{0}';"
+                , Token), connection);
+            
+            return command.ExecuteScalar().ToString();
+			
         }
 
         public bool ValidateToken(int Token, string ipAddress)

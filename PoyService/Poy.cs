@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web;
+using System.Threading;
 using Tamir.SharpSsh;
 using Tamir.SharpSsh.jsch;
 using System.IO;
@@ -11,22 +12,35 @@ namespace PoyService
     public class Poy
     {
         public static readonly string tempDir;
-        
-		public const string HostName = "glenn.osc.edu";
-		public const string UserName = "supramap";
-        public const string Password = "B633077S"; 
-		public const string PoyPath = "/nfs/03/supramap/bin:/nfs/03/supramap/lib";
-		public const string DataPath= "/nfs/03/supramap/poy_service/";
+        public SuperComputer superComputer;
+		
+		public string HostName {get{return superComputer.HostName;}}
+		public string UserName {get{return superComputer.UserName;}}
+        public string Password {get{return superComputer.Password;}}
+		public string PoyPath  {get{return superComputer.PoyPath;}}
+		public string DataPath {get{return superComputer.DataPath;}}
+		
+		
+		//public const string HostName = "glenn.osc.edu";
+		//public const string UserName = "supramap";
+        //public const string Password = "B633077S"; 
+		//public const string PoyPath = "/nfs/03/supramap/bin:/nfs/03/supramap/lib:/nfs/03/supramap/phengen";
+		//public const string DataPath= "/nfs/03/supramap/poy_service/";
 		
         static Poy()
         {
-			//d
             if (System.IO.Path.DirectorySeparatorChar == '\\')
                 tempDir = @"C:\temp\";
             else tempDir = @"/var/tmp/";
         }
 
-        System.Random randomNumbeGenerator = new System.Random();
+		public Poy(SuperComputer sc)
+        {
+			superComputer=sc;
+           	
+        }
+		
+        //System.Random randomNumbeGenerator = new System.Random();
 
 		private SshStream getShell()
         {
@@ -94,8 +108,28 @@ namespace PoyService
             File.Delete(dir);
             return true;
         }
+		
+		public bool AddZipFile(int jobId, byte[] fileData, string filename)
+        {
+            if(filename.Contains("/")) return false; //fail for securety
+            //if (filename.Contains(' ')) return false; //fail for securety
 
-        public string Submit(int jobId, int numberOfNodes, int wallTimeHours, int wallTimeMinutes)
+            string dir = string.Format(@"{0}{1}.zip", tempDir, filename);
+            Sftp sftp = new Sftp(HostName, UserName,Password);
+            sftp.Connect();
+
+            File.WriteAllBytes(dir, (byte[]) fileData);
+            
+            sftp.Put(dir,DataPath+'/'+jobId+'/');
+			//I could not Ftp to put the files in the right directory so I put them in the base and moved them with a ssh command
+            SshStream shell = getShell();
+            shell.Write(string.Format("unzip {2}{1}/{0}.zip", filename, jobId.ToString(),DataPath));
+			shell.Write(string.Format("rm {2}{1}/{0}.zip", filename, jobId.ToString(),DataPath));
+            File.Delete(dir);
+            return true;
+        }
+
+        public string Submit(int jobId, int numberOfNodes, int wallTimeHours, int wallTimeMinutes, string postBackURL)
         {
             if (wallTimeMinutes >= 60) return "Minutes must be less then 60";
             if (wallTimeHours >= 99) return "Hours must be less then 99";
@@ -123,7 +157,8 @@ namespace PoyService
                 writer.Write("PATH=$PATH:"+PoyPath+" \n");
                 writer.Write(string.Format("cd {0}{1}/ \n", DataPath,jobId));
                 writer.Write("echo the start time is `date`\n"); 
-                writer.Write("mpiexec poy -plugin ~/bin/supramap.cmxs *.poy \n");
+                writer.Write(string.Format("mpiexec poy -plugin {0}supramap.cmxs *.poy \n",superComputer.PluginPath));
+				writer.Write("wget "+postBackURL+ " \n");
                 writer.Write(" echo the end time is `date`\n");
             }
 
@@ -144,8 +179,8 @@ namespace PoyService
 
             return "Success"; 
         }
-
-        public bool isDone(int jobId)
+		
+		public bool isDone(int jobId,string command)
         {
              //SshStream ssh = getShell();
              //ssh.Write(string.Format(@"[ -f ~/poy_service/{0}/poy_{0}.* ] && echo 'yes' || echo 'no'", jobId));
@@ -162,12 +197,89 @@ namespace PoyService
 
             if (output == "yes\n")
             {
-                commander.RunCommand(string.Format(@"cp {1}{0}/poy_{0}.* {1}{0}/output.txt", jobId,DataPath));
+                commander.RunCommand(string.Format(@"cp {1}{0}/{2}_{0}.* {1}{0}/output.txt", jobId,DataPath,command));
                 return true;
             }
             else
                 return false;
         }
+		
+		public string SubmitGenPhen(int jobId,string jobName,string treeName, string postBackURL)
+        {
+
+            Sftp sftp = new Sftp(HostName, UserName, Password);
+            sftp.Connect();
+
+            string dir = string.Format(@"{0}GenPhenBatch.job", tempDir);
+
+            using (StreamWriter writer = new StreamWriter(dir, false))
+            {
+                
+                writer.Write("#PBS -l walltime=03:00:00 \n#PBS -l nodes=1:ppn=1 \n");
+                writer.Write("#PBS -N GenPhen_" + jobId.ToString() + " \n#PBS -j oe \n");
+                writer.Write("#PBS -S /bin/ksh \n");
+				writer.Write("PATH=$PATH:"+PoyPath+" \n");
+                writer.Write(string.Format("cd {0}{1}/ \n", DataPath,jobId));
+                writer.Write("echo the start time is `date`\n"); 
+				
+				writer.Write("mpiexec add_arbitrary_weights.awk "+treeName+" >temp_tree.tre\n");
+				writer.Write("cat temp_tree.tre "+jobName+".poy_output | mpiexec add_tree.pl >"+jobName+"_parsed.txt\n");
+				writer.Write("mpiexec reweight_tree.awk "+jobName+"_parsed.txt "+jobName+"_parsed.txt > "+jobName+"_rwt.txt \n");
+				
+				writer.Write("mpiexec divisiderum_postparse_totaldown.pl root  "+jobName+"_rwt.txt > "+jobName+"_down.txt \n");
+				writer.Write("mpiexec apomorphy_andtable_test_statistic_cox.pl "+jobName+"_rwt.txt  "+jobName+"_down.txt > "+jobName+"_stat.txt\n");
+				
+				writer.Write("awk '($1 != $2 && ($3+$4) > 3 && $3 > $5 && ($3-$10)*($3-$10)/$10 >=6){print;}' "+jobName+"_stat.txt > "+jobName+"_stat_p0.05.txt\n");
+				writer.Write("awk '($1 != $2 && ($3+$4) > 3 && $3 > $5 && ($3-$10)*($3-$10)/$10 >=19){print;}' "+jobName+"_stat.txt > "+jobName+"_stat_p0.001.txt\n");
+				writer.Write("awk '($1 != $2 && ($3+$4) > 3 && $3 > $5 && ($3-$10)*($3-$10)/$10 >=200){print;}' "+jobName+"_stat.txt > "+jobName+"_stat_p0.0001.txt\n");
+ 				
+				writer.Write("wget "+postBackURL+ " \n");
+                
+                writer.Write(" echo the end time is `date`\n");
+            }
+
+            sftp.Put(dir);
+            sftp.Close();
+			//I could not Ftp to put the files in the right directory so I put them in the base and moved them with a ssh command
+            SshStream shell = getShell();
+            shell.Write(string.Format("mv {0} {2}{1}/{0} ;", "GenPhenBatch.job", jobId.ToString(),DataPath));
+            shell.Write(string.Format("cd {1}{0} ;",  jobId.ToString(),DataPath));
+            
+			//echo `qstat | awk '/supramap/ {print $1}'`
+			
+			//shell.Write(string.Format("qsub -W depend=afterok:{0} GenPhenBatch.job",pbs_id));
+			
+			//please excuese the uglness of haveing code nested in code nested in code.
+			//awk is nest in bash that is nested in C#
+			shell.Write(string.Format("qsub -W depend=afterany:`qstat | awk '/poy_{0}/ {{split($1,array,\".\");print array[1]}}'` GenPhenBatch.job",jobId.ToString()));
+            File.Delete(dir);
+            
+            //sftp.Get("poy_test.o4281361",@"C:\temp\poy_test.o4281361");
+            //FileStream fileStream = File.OpenRead(@"C:\temp\poy_test.o4281361");
+            //byte[] filedata = new byte[(int)fileStream.Length];
+            //fileStream.Read(filedata,0,(int)fileStream.Length);
+
+            return "Success"; 
+        }
+
+//        public bool isGenPhenDone(int jobId)
+//        {
+//            SshExec commander = getCommander();
+//            string output="";
+//            string error="";
+//            commander.RunCommand(
+//                string.Format(@"[ -f {1}{0}/GenPhen_{0}.* ] && echo 'yes' || echo 'no'", jobId,DataPath),
+//                ref output,
+//                ref error);
+//
+//            if (output == "yes\n")
+//            {
+//                commander.RunCommand(string.Format(@"cp {1}{0}/poy_{0}.* {1}{0}/output.txt", jobId,DataPath));
+//                return true;
+//            }
+//            else
+//                return false;
+//        }
 		
 		public bool Delete(int jobId)
 		{
@@ -201,7 +313,7 @@ namespace PoyService
             return filedata;
         }
 		
-		public byte[] getZipFile(int jobId, string fileName)
+		public byte[] getCompressedFile(int jobId, string fileName,string compressionType )
         {
             if (fileName.Contains("/")) return null; //fail for securety
             //if (fileName.Contains(' ')) return null; //fail for securety
@@ -209,21 +321,89 @@ namespace PoyService
             Sftp sftp = getSftp();
 			SshStream shell = getShell();
 			
-			//zip <sam_copy.poy_output_2 >out.zip
-			shell.Write(string.Format(@"cd poy_service/{1} ; zip {0}.zip {0}", fileName, jobId ));
-            sftp.Get(
-                string.Format(@"poy_service/{1}/{0}.zip", fileName, jobId,DataPath),
-                string.Format(@"{0}{1}",tempDir, fileName)
-                );
-			shell.Write(string.Format(@"rm poy_service/{1}/{0}.zip", fileName, jobId ));
+			switch (compressionType) {
+			case "zip" :
+				shell.Write(string.Format(@"cd poy_service/{1} ; zip {0}.zip {0}", fileName, jobId ));
+				break;
+			case "tar.gz" :
+				shell.Write(string.Format(@"cd poy_service/{1} ; tar -czvf {0}.temp.tar.gz {0};mv {0}.temp.tar.gz {0}.tar.gz ", fileName, jobId ));
+				break;
+			default: 
+				break;
+				//return null ;
+			}
 			
-
-            FileStream fileStream = File.OpenRead(string.Format(@"{0}{1}", tempDir, fileName));
+			
+			//Thread.Sleep(5000);
+			for(int i = 0 ; i<30 ; i++)
+			{
+				Thread.Sleep(2000);
+				if(sftp.GetFileList(string.Format(@"poy_service/{0}/", jobId)).Contains(fileName+"."+compressionType))  i=30;
+				
+			}
+			
+			File.AppendAllText(tempDir+"log.txt",jobId.ToString()+": fileName found\n");
+			string vmFileName = string.Format(@"{0}{1}.{2}", tempDir, fileName,compressionType);
+			
+			if(File.Exists(vmFileName))
+		    {
+            	File.Delete(vmFileName);
+				File.AppendAllText(tempDir+"log.txt",jobId.ToString()+": deleted old version on vm "+vmFileName+"\n");
+			}
+			
+            sftp.Get(
+                string.Format(@"poy_service/{0}/{1}.{2}",  jobId,fileName,compressionType),
+                vmFileName 
+                );
+			
+			File.AppendAllText(tempDir+"log.txt",jobId.ToString()+": got file\n");
+			shell.Write(string.Format(@"rm {0}.{2}", fileName, jobId, compressionType));
+			
+			File.AppendAllText(tempDir+"log.txt",jobId.ToString()+": deleted old version on glenn\n");
+			
+            FileStream fileStream = File.OpenRead(vmFileName);
             byte[] filedata = new byte[(int)fileStream.Length];
             fileStream.Read(filedata, 0, (int)fileStream.Length);
-			File.Delete(string.Format(@"{0}{1}", tempDir, fileName));
             return filedata;
         }
+		
+		/*public byte[] getZipFile(int jobId, string fileName)
+        {
+            if (fileName.Contains("/")) return null; //fail for securety
+            //if (fileName.Contains(' ')) return null; //fail for securety
+
+            Sftp sftp = getSftp();
+			SshStream shell = getShell();
+			
+			shell.Write(string.Format(@"cd poy_service/{1} ; zip {0}.zip {0}", fileName, jobId ));
+			
+			for(int i = 0 ; i<30 ; i++)
+			{
+				Thread.Sleep(2000);
+				if(sftp.GetFileList(string.Format(@"poy_service/{0}/", jobId)).Contains(fileName+".zip"))  i=30;
+				
+			}
+			string vmFileName = string.Format(@"{0}{1}.zip", tempDir, fileName);
+			
+			if(File.Exists(vmFileName))
+		    {
+            	File.Delete(vmFileName);
+			}
+			
+            sftp.Get(
+                string.Format(@"poy_service/{1}/{0}.zip", fileName, jobId),
+                vmFileName 
+                );
+			shell.Write(string.Format(@"rm {0}.zip", fileName, jobId ));
+			
+			
+			
+            FileStream fileStream = File.OpenRead(vmFileName);
+            byte[] filedata = new byte[(int)fileStream.Length];
+            fileStream.Read(filedata, 0, (int)fileStream.Length);
+			//File.Delete(string.Format(@"{0}{1}", tempDir, fileName));
+            return filedata;
+        }*/
 		
 		public string getTextFile(int jobId, string fileName)
         {

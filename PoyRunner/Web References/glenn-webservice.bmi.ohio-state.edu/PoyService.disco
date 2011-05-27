@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<discovery xmlns:scl="http://schemas.xmlsoap.org/disco/scl/" xmlns="http://schemas.xmlsoap.org/disco/">
-  <scl:contractRef docRef="http://glenn-webservice.bmi.ohio-state.edu/PoyService.asmx" ref="http://glenn-webservice.bmi.ohio-state.edu/PoyService.asmx?wsdl" />
-  <soap xmlns:q1="supramap" binding="q1:PoyServiceSoap" address="http://glenn-webservice.bmi.ohio-state.edu/PoyService.asmx" xmlns="http://schemas/xmlsoap.org/disco/schema/soap/" />
-  <soap xmlns:q2="supramap" binding="q2:PoyServiceSoap12" address="http://glenn-webservice.bmi.ohio-state.edu/PoyService.asmx" xmlns="http://schemas/xmlsoap.org/disco/schema/soap/" />
-</discovery>

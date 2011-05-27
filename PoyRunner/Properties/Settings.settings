@@ -1,9 +1,0 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PoyRunner.Properties" GeneratedClassName="Settings">
-  <Profiles />
-  <Settings>
-    <Setting Name="PoyRunner_PoyService_PoyService" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://140.254.80.123/PoyService.asmx</Value>
-    </Setting>
-  </Settings>
-</SettingsFile>

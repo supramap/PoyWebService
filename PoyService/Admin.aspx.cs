@@ -57,7 +57,7 @@ namespace PoyService
             PoyServiceUser user;
             using (DataAccess access = new DataAccess())
             {
-                string passphrase = access.makePassPrase(userId);
+                //string passphrase = access.makePassPrase(userId);
                 user = new PoyServiceUser(userId,access);
             }
 

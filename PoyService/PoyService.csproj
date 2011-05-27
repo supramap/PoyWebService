@@ -44,9 +44,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -64,7 +62,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\Org.Mentalis.Security.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="Tamir.SharpSSH, Version=1.1.1.13, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\Tamir.SharpSSH.dll</HintPath>
@@ -81,6 +78,7 @@
     <Content Include="LogIn.aspx" />
     <Content Include="PoyService.asmx" />
     <Content Include="index.html" />
+    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin.aspx.cs">
@@ -118,6 +116,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PoyServiceUser.cs" />
+    <Compile Include="SuperComputerCredentials.cs" />
+    <Compile Include="SPHash.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -156,6 +156,9 @@
             <FileCopier Handler="MonoDevelop.Deployment.LocalFileCopyHandler" TargetDirectory="/home/jacob/Deploy" ctype="LocalFileCopyConfiguration" />
           </Target>
           <Target />
+          <Target Name="">
+            <FileCopier Handler="MonoDevelop.Deployment.SshFuseFileCopyHandler" TargetDirectory="jacob@140.254.80.215:/var/www/html" ExtraMountArguments="" ctype="SshFuseFileCopyConfiguration" />
+          </Target>
         </WebDeployTargets>
       </Properties>
     </MonoDevelop>

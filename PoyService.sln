@@ -11,8 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{8AA7397F-BEE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoyService", "PoyService\PoyService.csproj", "{2CF8DBDB-8ED1-4EF5-9D4F-E6F018E79944}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoyRunner", "PoyRunner\PoyRunner.csproj", "{DEB30B0A-B86D-47AC-897B-2A6F58AE6208}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{BCAA64E6-8CBC-4F9E-BD4A-3B1ED27A69CA}"
 EndProject
 Global
@@ -47,16 +45,6 @@ Global
 		{BCAA64E6-8CBC-4F9E-BD4A-3B1ED27A69CA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BCAA64E6-8CBC-4F9E-BD4A-3B1ED27A69CA}.Release|x86.ActiveCfg = Release|Any CPU
 		{BCAA64E6-8CBC-4F9E-BD4A-3B1ED27A69CA}.Release|x86.Build.0 = Release|Any CPU
-		{DEB30B0A-B86D-47AC-897B-2A6F58AE6208}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DEB30B0A-B86D-47AC-897B-2A6F58AE6208}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DEB30B0A-B86D-47AC-897B-2A6F58AE6208}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{DEB30B0A-B86D-47AC-897B-2A6F58AE6208}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{DEB30B0A-B86D-47AC-897B-2A6F58AE6208}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{DEB30B0A-B86D-47AC-897B-2A6F58AE6208}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DEB30B0A-B86D-47AC-897B-2A6F58AE6208}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DEB30B0A-B86D-47AC-897B-2A6F58AE6208}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{DEB30B0A-B86D-47AC-897B-2A6F58AE6208}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{DEB30B0A-B86D-47AC-897B-2A6F58AE6208}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
