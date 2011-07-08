@@ -9,8 +9,7 @@ namespace PoyService
     /// <summary>
     /// Summary description for Service1
     /// </summary>
-    [WebService(Namespace = "supramap", Description = "Service for running poy on glenn osc super computer" +
-    	"Note: there is a bug and the method won't work if there is a space in any of the file names")]
+    [WebService(Namespace = "supramap", Description = "Service for running poy on glenn osc super computer (Note: do not use space in any of the file names)")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     public class PoyService : System.Web.Services.WebService

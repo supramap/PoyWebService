@@ -229,9 +229,9 @@ namespace PoyService
 				writer.Write("mpiexec divisiderum_postparse_totaldown.pl root  "+jobName+"_rwt.txt > "+jobName+"_down.txt \n");
 				writer.Write("mpiexec apomorphy_andtable_test_statistic_cox.pl "+jobName+"_rwt.txt  "+jobName+"_down.txt > "+jobName+"_stat.txt\n");
 				
-				writer.Write("awk '($1 != $2 && ($3+$4) > 3 && $3 > $5 && ($3-$10)*($3-$10)/$10 >=6){print;}' "+jobName+"_stat.txt > "+jobName+"_stat_p0.05.txt\n");
-				writer.Write("awk '($1 != $2 && ($3+$4) > 3 && $3 > $5 && ($3-$10)*($3-$10)/$10 >=19){print;}' "+jobName+"_stat.txt > "+jobName+"_stat_p0.001.txt\n");
-				writer.Write("awk '($1 != $2 && ($3+$4) > 3 && $3 > $5 && ($3-$10)*($3-$10)/$10 >=200){print;}' "+jobName+"_stat.txt > "+jobName+"_stat_p0.0001.txt\n");
+				writer.Write("awk '($1 != $2 && ($3+$4) > 3 && $3 > $5 && ($3-$10)/sqrt($10) >=sqrt(6)){print;}' "+jobName+"_stat.txt > "+jobName+"_stat_p0.05.txt\n");
+				writer.Write("awk '($1 != $2 && ($3+$4) > 3 && $3 > $5 && ($3-$10)/sqrt($10) >=sqrt(19)){print;}' "+jobName+"_stat.txt > "+jobName+"_stat_p0.001.txt\n");
+				writer.Write("awk '($1 != $2 && ($3+$4) > 3 && $3 > $5 && ($3-$10)/sqrt($10) >=sqrt(200)){print;}' "+jobName+"_stat.txt > "+jobName+"_stat_p0.0001.txt\n");
  				
 				writer.Write("wget "+postBackURL+ " \n");
                 
