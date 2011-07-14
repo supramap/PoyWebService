@@ -81,11 +81,7 @@ namespace PoyService
             Sftp sftp = new Sftp(HostName, UserName,Password);
             sftp.Connect();
             File.WriteAllText(dir,fileData);
-            sftp.Put(dir);
-            //I could not Ftp to put the files in the right directory so I put them in the base and moved them with a ssh command
-			SshStream shell = getShell();
-            shell.Write(string.Format("mv {0} {2}{1}/{0}", filename, jobId.ToString(),DataPath));
-           
+			sftp.Put(dir,string.Format("{2}{1}/{0}", filename, jobId.ToString(),DataPath));
             File.Delete(dir);
             return true;
         }
@@ -100,11 +96,8 @@ namespace PoyService
             sftp.Connect();
 
             File.WriteAllBytes(dir, (byte[]) fileData);
+            sftp.Put(dir,string.Format("{2}{1}/{0}", filename, jobId.ToString(),DataPath));
             
-            sftp.Put(dir);
-			//I could not Ftp to put the files in the right directory so I put them in the base and moved them with a ssh command
-            SshStream shell = getShell();
-            shell.Write(string.Format("mv {0} {2}{1}/{0}", filename, jobId.ToString(),DataPath));
             File.Delete(dir);
             return true;
         }
@@ -121,7 +114,7 @@ namespace PoyService
             File.WriteAllBytes(dir, (byte[]) fileData);
             
             sftp.Put(dir,DataPath+'/'+jobId+'/');
-			//I could not Ftp to put the files in the right directory so I put them in the base and moved them with a ssh command
+
             SshStream shell = getShell();
             shell.Write(string.Format("unzip {2}{1}/{0}.zip", filename, jobId.ToString(),DataPath));
 			shell.Write(string.Format("rm {2}{1}/{0}.zip", filename, jobId.ToString(),DataPath));
