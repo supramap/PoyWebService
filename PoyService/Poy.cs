@@ -142,15 +142,29 @@ namespace PoyService
                     wallTimeMinutes.ToString().PadLeft(2,'0')
                      
                     ));
-                writer.Write(string.Format("#PBS -l nodes={0}:ppn=4:olddual \n",numberOfNodes));
+				
+				
+				if(superComputer.HostName=="glenn.osc.edu")
+                	writer.Write(string.Format("#PBS -l nodes={0}:ppn=4:olddual  \n",numberOfNodes));
+				else if(superComputer.HostName=="superdev.bmi.ohio-state.edu") 
+					writer.Write("#PBS -l nodes=5:ppn=8+4:ppn=4  \n" );
+				else
+					writer.Write(string.Format("#PBS -l nodes={0} \n",numberOfNodes));
+				
                 writer.Write("#PBS -N poy_" + jobId.ToString() + " \n");
                 writer.Write("#PBS -j oe \n");
                 //writer.Write("#PBS –o output.txt \n");
-                writer.Write("#PBS -S /bin/ksh \n");
-                writer.Write("PATH=$PATH:"+PoyPath+" \n");
+                //writer.Write("#PBS -S /bin/ksh \n");
+				if(superComputer.HostName!="superdev.bmi.ohio-state.edu") 
+                	writer.Write("PATH="+PoyPath+":$PATH \n");
                 writer.Write(string.Format("cd {0}{1}/ \n", DataPath,jobId));
                 writer.Write("echo the start time is `date`\n"); 
-                writer.Write(string.Format("mpiexec poy -plugin {0}supramap.cmxs *.poy \n",superComputer.PluginPath));
+				if(superComputer.HostName=="superdev.bmi.ohio-state.edu") 
+					//writer.Write(string.Format("mpirun -np $NUM_PROC -machinefile $PBS_NODEFILE --mca btl tcp,self --mca btl_tcp_if_include eth0 {0}poy -plugin {0}supramap.cmxs *.poy \n",superComputer.PluginPath));
+					writer.Write("mpirun -np 56 -machinefile $PBS_NODEFILE --mca btl tcp,self --mca btl_tcp_if_include eth0 poy_mpi -plugin /usr/local/poy-4.1.2/bin/supramap_mpi.cmxs *.poy \n");
+
+				else
+                	writer.Write(string.Format("mpiexec {0}poy -plugin {0}supramap.cmxs *.poy \n",superComputer.PluginPath));
 				writer.Write("wget "+postBackURL+ " \n");
                 writer.Write(" echo the end time is `date`\n");
             }

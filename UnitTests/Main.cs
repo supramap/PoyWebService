@@ -6,6 +6,9 @@ namespace UnitTests
 	{
 		public static void Main (string[] args)
 		{
+			
+			
+			
 			try{
 				Console.WriteLine ("Hello World!");
 				Poy poy = new Poy(SuperComputer.GetGlenn());

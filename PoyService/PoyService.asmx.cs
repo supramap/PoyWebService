@@ -9,7 +9,7 @@ namespace PoyService
     /// <summary>
     /// Summary description for Service1
     /// </summary>
-    [WebService(Namespace = "supramap", Description = "Service for running poy on glenn osc super computer (Note: do not use space in any of the file names)")]
+    [WebService(Namespace = "supramap", Description = "(Note: do not use space in any of the file names)")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     public class PoyService : System.Web.Services.WebService
@@ -57,7 +57,7 @@ namespace PoyService
          it should be called for each file that the POY script references. 
          It is the responsibility of the downstream client developer to 
          generate the POY scripts this places more work in there hands but 
-         also give them great flexibility to do design web apps that can 
+         also give them great flexibility to design web apps that can 
          use POY for anything.
 		Note: there is a bug and the method won't work if there is a space in any of the file names
 		")]
@@ -82,7 +82,7 @@ namespace PoyService
             }
         }
 
-        [WebMethod(Description = @"An alternative to the Add File method that uses a simple string as parameter  instead of binary data.")]
+        [WebMethod(Description = @"The AddTextFile method is an alternative to the Add File command. This function allows the permissioned user to add a file as a simple string instead of using binary data in the fileData field.")]
         public string AddTextFile(int jobId, string fileData,string fileName)
         {
             try
@@ -103,21 +103,18 @@ namespace PoyService
             }
         }
 
-        [WebMethod(Description = @"The last method 'GetFile' basically is used to retrieve the output files specified in the POY script. It is called once per file. ")]
+        [WebMethod(Description = @"The GetFile method is utilized to retrieve the output files specified in the Poy script. This function is called once per file ")]
         public byte[] GetFile(int jobId, string fileName)
         {
             using (DataAccess dataAccess = new DataAccess())
             {
                 if (!dataAccess.ValidateToken(jobId, HttpContext.Current.Request.UserHostAddress))
-                    return null;
-				
-				
+                    return null;	
             }
-
             return SPHash.getValue(jobId).getFile(jobId,fileName);
         }
 		
-		[WebMethod(Description = @"Another method to get a binary object. this one just compresses the file first. The 3rd parmater compressionType supports 2 values for now 'zip' and 'tar.gz'")]
+		[WebMethod(Description = @"The GetZipedFile is a second method that can be used to retrieve an output file. This command allows the user to compress the file prior to retrieving it. ")]
         public byte[] GetZipedFile(int jobId, string fileName,string compressionType )
         {
             using (DataAccess dataAccess = new DataAccess())
