@@ -9,6 +9,9 @@ using System.Text;
 
 namespace PoyService
 {
+    /// <summary>
+    
+    /// </summary>
     public class Poy
     {
         public static readonly string tempDir;
@@ -268,25 +271,6 @@ namespace PoyService
 
             return "Success"; 
         }
-
-//        public bool isGenPhenDone(int jobId)
-//        {
-//            SshExec commander = getCommander();
-//            string output="";
-//            string error="";
-//            commander.RunCommand(
-//                string.Format(@"[ -f {1}{0}/GenPhen_{0}.* ] && echo 'yes' || echo 'no'", jobId,DataPath),
-//                ref output,
-//                ref error);
-//
-//            if (output == "yes\n")
-//            {
-//                commander.RunCommand(string.Format(@"cp {1}{0}/poy_{0}.* {1}{0}/output.txt", jobId,DataPath));
-//                return true;
-//            }
-//            else
-//                return false;
-//        }
 		
 		public bool Delete(int jobId)
 		{
