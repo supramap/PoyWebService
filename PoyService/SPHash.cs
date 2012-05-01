@@ -8,6 +8,7 @@ namespace PoyService
 		private static IDictionary<int,Poy> hash = new Dictionary<int, Poy>();
 		private static Poy Glenn = new Poy(SuperComputer.GetGlenn());
 		private static Poy Superdev = new Poy( SuperComputer.GetDansClustor());
+		private static Poy Oakley = new Poy( SuperComputer.GetOakley());
 		
 		static SPHash()
 		{
@@ -22,6 +23,11 @@ namespace PoyService
 				
 				switch (access.getResourceIdForToken( token).ToLower()) {
 					
+				case "oakley": 
+				{
+					hash.Add(token,Glenn);
+					break;
+				}	
 				case "glenn": 
 				{
 					hash.Add(token,Glenn);

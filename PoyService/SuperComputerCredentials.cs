@@ -9,7 +9,20 @@ namespace PoyService
 		public string PoyPath;
 		public string DataPath;
 		public string PluginPath;
-
+		
+		public static SuperComputer GetOakley ()
+		{
+			return new SuperComputer 
+			{ 
+				HostName = "Oakley.osc.edu", 
+				UserName = "supramap", 
+				Password = "B633077S", 
+				PoyPath = "/nfs/03/supramap/poy5/bin/", 
+				DataPath = "/nfs/03/supramap/poyws_data" ,
+				PluginPath ="/nfs/03/supramap/poy5/bin/"
+			};
+		}
+		
 		public static SuperComputer GetGlenn ()
 		{
 			return new SuperComputer 

@@ -1,6 +1,6 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" ctype="Workspace" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="PoyService/PoyService.asmx.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="PoyService/PoyService.asmx.cs">
     <Files>
       <File FileName="PoyService/PoyService.asmx.cs" Line="169" Column="23" />
       <File FileName="PoyService/Poy.cs" Line="6" Column="27" />
@@ -9,7 +9,7 @@
       <File FileName="PoyService/DataAccess.cs" Line="82" Column="9" />
       <File FileName="PoyService/Application.aspx" Line="1" Column="1" />
       <File FileName="PoyService/ApplicationSubmited.htm" Line="1" Column="1" />
-      <File FileName="PoyService/Admin.aspx.designer.cs" Line="1" Column="1" />
+      <File FileName="PoyService/Admin.aspx.designer.cs" Line="21" Column="1" />
       <File FileName="PoyService/index.html" Line="1" Column="1" />
       <File FileName="PoyService/Email.cs" Line="1" Column="1" />
       <File FileName="PoyService/PoyService.asmx" Line="1" Column="1" />
@@ -21,11 +21,9 @@
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="PoyService" expanded="True">
+          <Node name="PoyService" expanded="True" selected="True">
             <Node name="Admin.aspx" expanded="True" />
-            <Node name="PoyService.asmx" expanded="True">
-              <Node name="PoyService.asmx.cs" selected="True" />
-            </Node>
+            <Node name="PoyService.asmx" expanded="True" />
           </Node>
           <Node name="UnitTests" expanded="True" />
         </State>
@@ -51,5 +49,5 @@
       <Breakpoint file="/home/jacob/PoyWebService/PoyRunner/Upload.aspx.cs" line="27" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches ctype="PinnedWatchStore" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

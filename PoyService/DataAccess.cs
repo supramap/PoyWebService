@@ -13,8 +13,10 @@ namespace PoyService
         static System.Random randomNumbeGenerator = new System.Random();
         public DataAccess()
         {
-            connection = new MySqlConnection("Server=140.254.80.125;Database=PoyService;Uid=poyman;Pwd=poyman$;Pooling=false;");
-            connection.Open();
+            //connection = new MySqlConnection("Server=140.254.80.125;Database=PoyService;Uid=poyman;Pwd=poyman$;Pooling=false;");
+            connection = new MySqlConnection("Server=xio29.osc.edu;Database=poy_webservice;Uid=supramap_admin;Pwd=nosnoraA;Pooling=false;");
+			 
+			connection.Open();
         }
 
         //public void AddUser(string userName, string password, string Email)

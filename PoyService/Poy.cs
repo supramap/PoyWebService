@@ -23,13 +23,6 @@ namespace PoyService
 		public string PoyPath  {get{return superComputer.PoyPath;}}
 		public string DataPath {get{return superComputer.DataPath;}}
 		
-		
-		//public const string HostName = "glenn.osc.edu";
-		//public const string UserName = "supramap";
-        //public const string Password = "B633077S"; 
-		//public const string PoyPath = "/nfs/03/supramap/bin:/nfs/03/supramap/lib:/nfs/03/supramap/phengen";
-		//public const string DataPath= "/nfs/03/supramap/poy_service/";
-		
         static Poy()
         {
             if (System.IO.Path.DirectorySeparatorChar == '\\')

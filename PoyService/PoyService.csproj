@@ -50,24 +50,19 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="AjaxControlToolkit, Version=3.5.40412.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="AjaxControlToolkit">
       <HintPath>..\Lib\AjaxControlToolkit.dll</HintPath>
     </Reference>
-    <Reference Include="DiffieHellman, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="DiffieHellman">
       <HintPath>..\Lib\DiffieHellman.dll</HintPath>
     </Reference>
-    <Reference Include="Org.Mentalis.Security, Version=1.0.13.715, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Org.Mentalis.Security">
       <HintPath>..\Lib\Org.Mentalis.Security.dll</HintPath>
     </Reference>
-    <Reference Include="Tamir.SharpSSH, Version=1.1.1.13, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Tamir.SharpSSH">
       <HintPath>..\Lib\Tamir.SharpSSH.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=1.0.10.1, Culture=neutral, PublicKeyToken=c5687fc88969c44d">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="MySql.Data">
       <HintPath>..\Lib\MySql.Data.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -158,6 +153,12 @@
           <Target />
           <Target Name="">
             <FileCopier Handler="MonoDevelop.Deployment.SshFuseFileCopyHandler" TargetDirectory="jacob@140.254.80.215:/var/www/html" ExtraMountArguments="" ctype="SshFuseFileCopyConfiguration" />
+          </Target>
+          <Target Name="">
+            <FileCopier Handler="MonoDevelop.Deployment.LocalFileCopyHandler" TargetDirectory="/Users/aaro03/PoyWebService/deploy" ctype="LocalFileCopyConfiguration" />
+          </Target>
+          <Target Name="">
+            <FileCopier Handler="MonoDevelop.Deployment.LocalFileCopyHandler" TargetDirectory="" ctype="LocalFileCopyConfiguration" />
           </Target>
         </WebDeployTargets>
       </Properties>
