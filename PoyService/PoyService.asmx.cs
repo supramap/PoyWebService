@@ -12,8 +12,8 @@ namespace PoyService
     [WebService(Namespace = "supramap", Description = @"
 
 The Application to use the following web service can be found <a href='http://poyws.osc.edu/Application.aspx'>here</a> 
-\n<br/>(Note: do not use space in any of the file names)
-\n\nhttp://poyws.osc.edu/Application.aspx
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>(Note: do not use space in any of the file names)
+
 ")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
