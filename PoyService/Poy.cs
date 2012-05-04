@@ -141,7 +141,7 @@ namespace PoyService
 				
 				
 				if(superComputer.HostName=="glenn.osc.edu")
-                	writer.Write(string.Format("#PBS -l nodes={0}:ppn=4:olddual  \n",numberOfNodes));
+                	writer.Write(string.Format("#PBS -l nodes={0}:ppn=12 \n",numberOfNodes));
 				else if(superComputer.HostName=="superdev.bmi.ohio-state.edu") 
 					writer.Write("#PBS -l nodes=5:ppn=8+4:ppn=4  \n" );
 				else

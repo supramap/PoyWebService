@@ -1,12 +1,12 @@
-﻿<Properties>
+﻿<Properties GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="PoyService/PoyService.asmx.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PoyService/Poy.cs">
     <Files>
-      <File FileName="PoyService/PoyService.asmx.cs" Line="169" Column="23" />
-      <File FileName="PoyService/Poy.cs" Line="6" Column="27" />
-      <File FileName="PoyService/SuperComputerCredentials.cs" Line="34" Column="17" />
+      <File FileName="PoyService/PoyService.asmx.cs" Line="74" Column="21" />
+      <File FileName="PoyService/Poy.cs" Line="25" Column="3" />
+      <File FileName="PoyService/SuperComputerCredentials.cs" Line="13" Column="40" />
       <File FileName="PoyService/PoyServiceUser.cs" Line="1" Column="1" />
-      <File FileName="PoyService/DataAccess.cs" Line="82" Column="9" />
+      <File FileName="PoyService/DataAccess.cs" Line="17" Column="91" />
       <File FileName="PoyService/Application.aspx" Line="1" Column="1" />
       <File FileName="PoyService/ApplicationSubmited.htm" Line="1" Column="1" />
       <File FileName="PoyService/Admin.aspx.designer.cs" Line="21" Column="1" />
@@ -14,8 +14,8 @@
       <File FileName="PoyService/Email.cs" Line="1" Column="1" />
       <File FileName="PoyService/PoyService.asmx" Line="1" Column="1" />
       <File FileName="PoyService/Admin.aspx.cs" Line="1" Column="1" />
-      <File FileName="PoyService/SPHash.cs" Line="30" Column="11" />
-      <File FileName="PoyService/Web.config" Line="1" Column="1" />
+      <File FileName="PoyService/SPHash.cs" Line="11" Column="65" />
+      <File FileName="PoyService/Web.config" Line="8" Column="3" />
       <File FileName="UnitTests/Main.cs" Line="16" Column="5" />
     </Files>
     <Pads>
