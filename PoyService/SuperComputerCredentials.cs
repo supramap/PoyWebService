@@ -18,7 +18,7 @@ namespace PoyService
 				UserName = "supramap", 
 				Password = "B633077S", 
 				PoyPath = "/nfs/03/supramap/poy5/bin/", 
-				DataPath = "/nfs/03/supramap/poyws_data" ,
+				DataPath = "/nfs/03/supramap/poyws_data/" ,
 				PluginPath ="/nfs/03/supramap/poy5/bin/"
 			};
 		}
