@@ -7,10 +7,23 @@ namespace PoyService
 		public string UserName;
 		public string Password;
 		public string PoyPath;
-		public string DataPath;
-		public string PluginPath;
-		
-		public static SuperComputer GetOakley ()
+        public string DataPath;
+        public string PluginPath;
+
+        public static SuperComputer GetBlueridge ()
+        {
+            return new SuperComputer
+            {
+                HostName = "br0.renci.org",
+                UserName = "supramap",
+                Password = "4cCf047s8PfuoJo",
+                PoyPath = "/home/supramap/poy/poy/bin/",
+                DataPath = "/home/supramap/poyws_data/",
+                PluginPath = "/home/supramap/poy/plugin/"
+            };
+        }
+
+        public static SuperComputer GetOakley()
 		{
 			return new SuperComputer 
 			{ 

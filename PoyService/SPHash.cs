@@ -9,6 +9,7 @@ namespace PoyService
 		private static Poy Glenn = new Poy(SuperComputer.GetGlenn());
 		private static Poy Superdev = new Poy( SuperComputer.GetDansClustor());
 		private static Poy Oakley = new Poy( SuperComputer.GetOakley());
+        private static Poy Blueridge = new Poy(SuperComputer.GetBlueridge());
 		
 		static SPHash()
 		{
@@ -38,6 +39,11 @@ namespace PoyService
 					hash.Add(token,Superdev);
 					break;
 				}
+                case "blueridge":
+                {
+                    hash.Add(token, Blueridge);
+                    break;
+                }
 				default:
 				break;
 				}

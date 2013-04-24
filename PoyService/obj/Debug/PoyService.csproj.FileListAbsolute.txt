@@ -18,3 +18,15 @@ C:\Users\Jacob\Documents\Visual Studio 2010\Projects\PoyService\PoyService\obj\D
 C:\Users\Jacob\Documents\Visual Studio 2010\Projects\PoyService\PoyService\obj\Debug\GenerateResource-ResGen.write.1.tlog
 C:\Users\Jacob\Documents\Visual Studio 2010\Projects\PoyService\PoyService\obj\Debug\PoyService.dll
 C:\Users\Jacob\Documents\Visual Studio 2010\Projects\PoyService\PoyService\obj\Debug\PoyService.pdb
+C:\opt\PoyWebService\PoyService\bin\PoyService.dll
+C:\opt\PoyWebService\PoyService\bin\PoyService.pdb
+C:\opt\PoyWebService\PoyService\bin\AjaxControlToolkit.dll
+C:\opt\PoyWebService\PoyService\bin\DiffieHellman.dll
+C:\opt\PoyWebService\PoyService\bin\MySql.Data.dll
+C:\opt\PoyWebService\PoyService\bin\Org.Mentalis.Security.dll
+C:\opt\PoyWebService\PoyService\bin\Tamir.SharpSSH.dll
+C:\opt\PoyWebService\PoyService\obj\Debug\PoyService.csprojResolveAssemblyReference.cache
+C:\opt\PoyWebService\PoyService\obj\Debug\PoyService.Properties.Resources.resources
+C:\opt\PoyWebService\PoyService\obj\Debug\PoyService.csproj.GenerateResource.Cache
+C:\opt\PoyWebService\PoyService\obj\Debug\PoyService.dll
+C:\opt\PoyWebService\PoyService\obj\Debug\PoyService.pdb
