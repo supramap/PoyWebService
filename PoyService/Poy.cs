@@ -159,7 +159,9 @@ namespace PoyService
 					//writer.Write(string.Format("mpirun -np $NUM_PROC -machinefile $PBS_NODEFILE --mca btl tcp,self --mca btl_tcp_if_include eth0 {0}poy -plugin {0}supramap.cmxs *.poy \n",superComputer.PluginPath));
 					writer.Write("mpirun -np 56 -machinefile $PBS_NODEFILE --mca btl tcp,self --mca btl_tcp_if_include eth0 poy_mpi -plugin /usr/local/poy-4.1.2/bin/supramap_mpi.cmxs *.poy \n");
 
-				else
+				else if (superComputer.HostName == "br0.renci.org")
+                    writer.Write(string.Format("mpiexec {0}poy -plugin {1}supramap.cmxs *.poy \n", superComputer.PoyPath, superComputer.PluginPath));
+                else
                 	writer.Write(string.Format("mpiexec {0}poy -plugin {0}supramap.cmxs *.poy \n",superComputer.PluginPath));
 				writer.Write("wget "+postBackURL+ " \n");
                 writer.Write(" echo the end time is `date`\n");
@@ -398,7 +400,8 @@ namespace PoyService
             sftp.Connect();
 
             sftp.Get(
-                string.Format(@"poy_service/{1}/{0}", fileName, jobId,DataPath),
+                //string.Format(@"poy_service/{1}/{0}", fileName, jobId, DataPath),
+                string.Format(@"{0}{1}/{2}", DataPath, jobId, fileName),
                 string.Format(@"{0}{1}",tempDir, fileName)
                 );
 		   string output = File.ReadAllText(string.Format(@"{0}{1}", tempDir, fileName));

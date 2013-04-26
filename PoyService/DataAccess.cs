@@ -14,7 +14,7 @@ namespace PoyService
         public DataAccess()
         {
             //connection = new MySqlConnection("Server=140.254.80.125;Database=PoyService;Uid=poyman;Pwd=poyman$;Pooling=false;");
-            connection = new MySqlConnection("Server=xio29.osc.edu;Database=poy_webservice;Uid=supramap_admin;Pwd=nosnoraA;Pooling=false;");
+            connection = new MySqlConnection("Server=localhost;Database=poy_webservice;Uid=supramap_admin;Pwd=nix8024;Pooling=false;");
 			 
 			connection.Open();
         }
